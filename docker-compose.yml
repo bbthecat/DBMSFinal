@@ -1,0 +1,16 @@
+version: '3.8'
+services:
+  oracle-db:
+    image: gvenzl/oracle-xe:latest
+    container_name: oracle_local
+    environment:
+      - ORACLE_PASSWORD=p123
+    ports:
+      - "1521:1521"
+    volumes:
+      - oracle_data:/opt/oracle/oradata
+      # บรรทัดนี้คือทีเด็ด! สั่งให้ดึงไฟล์ SQL เข้าไปรันตอนเปิด DB ครั้งแรก
+      - ./init_scripts:/container-entrypoint-initdb.d/
+
+volumes:
+  oracle_data:
