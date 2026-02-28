@@ -7,3 +7,6 @@ CREATE TABLE Employees (
 	Last_Name		varchar2(100),
 	CONSTRAINTS	Empk	PRIMARY KEY (EMP_ID)
 );
+select * from EMPLOYEES;
+
+

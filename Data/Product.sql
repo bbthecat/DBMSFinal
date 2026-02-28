@@ -33,6 +33,39 @@ VALUES ('PRD0000000009', 'Dangerous Drug', 'Lipitor 20mg', 'Atorvastatin', 10, 1
 INSERT INTO Product (Product_ID, Drug_type, Product_Name, Generic_Name, Reorder_Point, Unit_Price, Unit_per_pack, Category_ID) 
 VALUES ('PRD0000000010', 'Dangerous Drug', 'Concor 5mg', 'Bisoprolol', 10, 350, 30, 'C05');
 
+-- เพิ่มเติม C01: ยาแก้ปวดลดไข้
+INSERT INTO Product (Product_ID, Drug_type, Product_Name, Generic_Name, Reorder_Point, Unit_Price, Unit_per_pack, Category_ID) 
+VALUES ('PRD0000000011', 'OTC', 'Aspirin 300mg', 'Acetylsalicylic Acid', 40, 25, 10, 'C01');
+
+INSERT INTO Product (Product_ID, Drug_type, Product_Name, Generic_Name, Reorder_Point, Unit_Price, Unit_per_pack, Category_ID) 
+VALUES ('PRD0000000012', 'Dangerous Drug', 'Naproxen 250mg', 'Naproxen', 20, 90, 10, 'C01');
+
+-- เพิ่มเติม C02: ยาปฏิชีวนะ
+INSERT INTO Product (Product_ID, Drug_type, Product_Name, Generic_Name, Reorder_Point, Unit_Price, Unit_per_pack, Category_ID) 
+VALUES ('PRD0000000013', 'Dangerous Drug', 'Zithromax 250mg', 'Azithromycin', 15, 380, 6, 'C02');
+
+INSERT INTO Product (Product_ID, Drug_type, Product_Name, Generic_Name, Reorder_Point, Unit_Price, Unit_per_pack, Category_ID) 
+VALUES ('PRD0000000014', 'Dangerous Drug', 'Keflex 500mg', 'Cephalexin', 20, 250, 10, 'C02');
+
+-- เพิ่มเติม C03: ยาแก้แพ้
+INSERT INTO Product (Product_ID, Drug_type, Product_Name, Generic_Name, Reorder_Point, Unit_Price, Unit_per_pack, Category_ID) 
+VALUES ('PRD0000000015', 'OTC', 'Clarityne 10mg', 'Loratadine', 30, 160, 10, 'C03');
+
+-- เพิ่มเติม C04: ยาระบบทางเดินอาหาร
+INSERT INTO Product (Product_ID, Drug_type, Product_Name, Generic_Name, Reorder_Point, Unit_Price, Unit_per_pack, Category_ID) 
+VALUES ('PRD0000000016', 'Dangerous Drug', 'Buscopan 10mg', 'Hyoscine Butylbromide', 25, 95, 10, 'C04');
+
+INSERT INTO Product (Product_ID, Drug_type, Product_Name, Generic_Name, Reorder_Point, Unit_Price, Unit_per_pack, Category_ID) 
+VALUES ('PRD0000000017', 'OTC', 'Smecta 3g', 'Diosmectite', 20, 45, 10, 'C04');
+
+-- เพิ่มเติม C05: ยาระบบหัวใจและหลอดเลือด
+INSERT INTO Product (Product_ID, Drug_type, Product_Name, Generic_Name, Reorder_Point, Unit_Price, Unit_per_pack, Category_ID) 
+VALUES ('PRD0000000018', 'Dangerous Drug', 'Norvasc 5mg', 'Amlodipine', 10, 450, 30, 'C05');
+
+INSERT INTO Product (Product_ID, Drug_type, Product_Name, Generic_Name, Reorder_Point, Unit_Price, Unit_per_pack, Category_ID) 
+VALUES ('PRD0000000019', 'Dangerous Drug', 'Cozaar 50mg', 'Losartan', 10, 550, 30, 'C05');
+
+-- Barcode product
 INSERT INTO Product (Product_ID, Drug_type, Product_Name, Generic_Name, Reorder_Point, Unit_Price, Unit_per_pack, Category_ID) 
 VALUES ('8852978007459', 'OTC', 'Cemol 500mg', 'Paracetamol', 50, 15, 10, 'C01');
 
