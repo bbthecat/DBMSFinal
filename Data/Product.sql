@@ -33,4 +33,7 @@ VALUES ('PRD0000000009', 'Dangerous Drug', 'Lipitor 20mg', 'Atorvastatin', 10, 1
 INSERT INTO Product (Product_ID, Drug_type, Product_Name, Generic_Name, Reorder_Point, Unit_Price, Unit_per_pack, Category_ID) 
 VALUES ('PRD0000000010', 'Dangerous Drug', 'Concor 5mg', 'Bisoprolol', 10, 350, 30, 'C05');
 
-COMMIT
+INSERT INTO Product (Product_ID, Drug_type, Product_Name, Generic_Name, Reorder_Point, Unit_Price, Unit_per_pack, Category_ID) 
+VALUES ('8852978007459', 'OTC', 'Cemol 500mg', 'Paracetamol', 50, 15, 10, 'C01');
+
+commit;
