@@ -109,15 +109,16 @@ cd web
 
 echo.
 echo [1/3] กำลังตรวจสอบและติดตั้ง NPM Dependencies...
-call npm install
+set "PATH=%PATH%;C:\nodejs\node-v20.11.1-win-x64"
+call "npm" install
 
 echo.
 echo [2/3] กำลังเตรียมโครงสร้างฐานข้อมูล (Tables / Mock Data)...
-node setup-db.js
+"node" setup-db.js
 
 echo.
 echo [3/3] กำลังเริ่มทำงาน Server...
 echo ===================================================
-call npm start
+call "npm" start
 
 pause
