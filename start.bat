@@ -108,17 +108,21 @@ echo [!] ติดตั้ง Oracle Instant Client สำเร็จ!
 cd web
 
 echo.
-echo [1/3] กำลังตรวจสอบและติดตั้ง NPM Dependencies...
-set "PATH=%PATH%;C:\nodejs\node-v20.11.1-win-x64"
-call "npm" install
+if exist "node_modules\" (
+    echo [1/3] ตรวจพบ NPM Dependencies แพ็กเกจถูกโหลดไว้แล้ว (ข้ามการโหลดซ้ำ)
+) else (
+    echo [1/3] กำลังตรวจสอบและติดตั้ง NPM Dependencies ครั้งแรก...
+    set "PATH=%PATH%;C:\nodejs\node-v20.11.1-win-x64"
+    call npm install
+)
 
 echo.
 echo [2/3] กำลังเตรียมโครงสร้างฐานข้อมูล (Tables / Mock Data)...
-"node" setup-db.js
+node setup-db.js
 
 echo.
 echo [3/3] กำลังเริ่มทำงาน Server...
 echo ===================================================
-call "npm" start
+call npm start
 
 pause
