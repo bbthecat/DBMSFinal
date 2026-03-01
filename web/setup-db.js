@@ -55,7 +55,8 @@ async function executeSqlFile(filePath, type) {
                 err.message.includes('ORA-00001')) { // unique constraint
                 continue;
             }
-            console.error(`\x1b[31m[!] Error ในไฟล์ ${path.basename(filePath)}:\x1b[0m ${err.message}`);
+            // แสดงเฉพาะ Error ที่ดูร้ายแรง
+            console.error(`\x1b[31m[!] ข้อผิดพลาดในไฟล์ ${path.basename(filePath)}:\x1b[0m ${err.message}`);
             // console.error(`Query: ${q.substring(0, 50)}...`);
         }
     }
