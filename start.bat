@@ -38,30 +38,18 @@ if exist "C:\Program Files\nodejs\node.exe" (
     goto CheckOracle
 )
 
-if exist "C:\nodejs\node-v24.14.0-win-x64\node.exe" (
-    echo [OK] พบ Node.js แบบพกพา (Portable) ถูกติดตั้งไว้แล้ว (เพิ่มลง PATH ชั่วคราว)
-    set "PATH=%PATH%;C:\nodejs\node-v24.14.0-win-x64"
-    goto CheckOracle
-)
-
 goto InstallNode
 
 :InstallNode
-echo [!] ไม่พบ Node.js ในเครื่อง กำลังดาวน์โหลดแบบพกพา (Portable) อัตโนมัติ (ไม่ต้องกด Yes ยืนยันสิทธิ์)...
-set "NODE_DIR=C:\nodejs"
-if not exist "!NODE_DIR!" mkdir "!NODE_DIR!"
-
+echo [!] ไม่พบ Node.js ในเครื่อง กำลังดาวน์โหลดอัตโนมัติ (อาจมีกล่องข้อความเด้งขึ้นมาให้กด Yes เพื่อยืนยันสิทธิ์)...
 echo [!] กำลังดาวน์โหลด Node.js...
-powershell -Command "Invoke-WebRequest -Uri 'https://nodejs.org/dist/v24.14.0/node-v24.14.0-win-x64.zip' -OutFile '%TEMP%\nodejs.zip'"
+powershell -Command "Invoke-WebRequest -Uri 'https://nodejs.org/dist/v24.14.0/node-v24.14.0-x64.msi' -OutFile '%TEMP%\nodejs.msi'"
 
-echo [!] กำลังแตกไฟล์ไปยัง !NODE_DIR!...
-powershell -Command "Expand-Archive -Path '%TEMP%\nodejs.zip' -DestinationPath '!NODE_DIR!' -Force"
+echo [!] กำลังติดตั้ง Node.js...
+msiexec /i "%TEMP%\nodejs.msi" /passive
 
-echo [!] กำลังเพิ่มที่อยู่ไฟล์ลงในตัวแปรระบบ (System PATH)...
-powershell -Command "$userPath = [Environment]::GetEnvironmentVariable('PATH', 'User'); $nodePath = 'C:\nodejs\node-v24.14.0-win-x64'; if ($userPath -notlike '*'+$nodePath+'*') { [Environment]::SetEnvironmentVariable('PATH', $userPath + ';' + $nodePath, 'User') }"
-
-set "PATH=%PATH%;C:\nodejs\node-v24.14.0-win-x64"
 echo [!] ติดตั้ง Node.js สำเร็จ!
+set "PATH=%PATH%;C:\Program Files\nodejs\"
 
 :CheckOracle
 :: 2. ตรวจสอบและติดตั้ง Oracle Instant Client (Middleware สำหรับฐานข้อมูล)
@@ -107,8 +95,8 @@ echo [!] ติดตั้ง Oracle Instant Client สำเร็จ!
 :: 3. เข้าไปที่โฟลเดอร์รหัสผ่านเว็บและรัน
 cd web
 
-:: บังคับให้เซสชันนี้รู้จัก Node.js ชัวร์ๆ ไม่ว่าจะติดตั้งแบบไหนมา
-set "PATH=%PATH%;C:\Program Files\nodejs;C:\nodejs\node-v24.14.0-win-x64"
+:: บังคับให้เซสชันนี้รู้จัก Node.js ชัวร์ๆ
+set "PATH=%PATH%;C:\Program Files\nodejs"
 
 echo.
 if exist "node_modules\" (
