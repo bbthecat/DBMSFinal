@@ -95,17 +95,22 @@ echo [!] ติดตั้ง Oracle Instant Client สำเร็จ!
 :: 3. เข้าไปที่โฟลเดอร์รหัสผ่านเว็บและรัน
 cd web
 
-:: บังคับให้เซสชันนี้รู้จัก Node.js ชัวร์ๆ
+:: บังคับให้เซสชันนี้รู้จัก Node.js ชัวร์ๆ (ออกจาก DelayedExpansion เพื่อให้ PATH อัพเดตทันที)
+endlocal
 set "PATH=%PATH%;C:\Program Files\nodejs"
 
 echo.
-if exist "node_modules\" (
-    echo [1/3] ตรวจพบ NPM Dependencies ถูกโหลดไว้แล้ว (ข้ามการโหลดซ้ำ)
-) else (
-    echo [1/3] กำลังตรวจสอบและติดตั้ง NPM Dependencies ครั้งแรก...
-    call npm install
-)
+:: ตรวจสอบ node_modules โดยใช้ goto แทน if/else เพื่อหลีกเลี่ยงบั๊กตัวแปร
+if exist "node_modules\" goto SkipNpmInstall
 
+echo [1/3] กำลังตรวจสอบและติดตั้ง NPM Dependencies ครั้งแรก...
+call npm install
+goto DoneNpmInstall
+
+:SkipNpmInstall
+echo [1/3] ตรวจพบ NPM Dependencies ถูกโหลดไว้แล้ว (ข้ามการโหลดซ้ำ)
+
+:DoneNpmInstall
 echo.
 echo [2/3] กำลังเตรียมโครงสร้างฐานข้อมูล (Tables / Mock Data)...
 node setup-db.js
