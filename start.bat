@@ -38,15 +38,30 @@ if exist "C:\Program Files\nodejs\node.exe" (
     goto CheckOracle
 )
 
+if exist "C:\nodejs\node-v20.11.1-win-x64\node.exe" (
+    echo [OK] พบ Node.js แบบพกพา (Portable) ถูกติดตั้งไว้แล้ว (เพิ่มลง PATH ชั่วคราว)
+    set "PATH=%PATH%;C:\nodejs\node-v20.11.1-win-x64"
+    goto CheckOracle
+)
+
 goto InstallNode
 
 :InstallNode
-echo [!] ไม่พบ Node.js ในเครื่อง กำลังดาวน์โหลดและติดตั้ง (อาจใช้เวลาสักครู่)...
-powershell -Command "Invoke-WebRequest -Uri 'https://nodejs.org/dist/v20.11.1/node-v20.11.1-x64.msi' -OutFile '%TEMP%\nodejs_installer.msi'"
-echo [!] กำลังติดตั้ง Node.js... (กรุณากด Yes หากมีกล่องข้อความแจ้งเตือน)
-msiexec /i "%TEMP%\nodejs_installer.msi" /passive
+echo [!] ไม่พบ Node.js ในเครื่อง กำลังดาวน์โหลดแบบพกพา (Portable) อัตโนมัติ (ไม่ต้องกด Yes ยืนยันสิทธิ์)...
+set "NODE_DIR=C:\nodejs"
+if not exist "!NODE_DIR!" mkdir "!NODE_DIR!"
+
+echo [!] กำลังดาวน์โหลด Node.js...
+powershell -Command "Invoke-WebRequest -Uri 'https://nodejs.org/dist/v20.11.1/node-v20.11.1-win-x64.zip' -OutFile '%TEMP%\nodejs.zip'"
+
+echo [!] กำลังแตกไฟล์ไปยัง !NODE_DIR!...
+powershell -Command "Expand-Archive -Path '%TEMP%\nodejs.zip' -DestinationPath '!NODE_DIR!' -Force"
+
+echo [!] กำลังเพิ่มที่อยู่ไฟล์ลงในตัวแปรระบบ (System PATH)...
+powershell -Command "$userPath = [Environment]::GetEnvironmentVariable('PATH', 'User'); $nodePath = 'C:\nodejs\node-v20.11.1-win-x64'; if ($userPath -notlike '*'+$nodePath+'*') { [Environment]::SetEnvironmentVariable('PATH', $userPath + ';' + $nodePath, 'User') }"
+
+set "PATH=%PATH%;C:\nodejs\node-v20.11.1-win-x64"
 echo [!] ติดตั้ง Node.js สำเร็จ!
-set "PATH=%PATH%;C:\Program Files\nodejs\"
 
 :CheckOracle
 :: 2. ตรวจสอบและติดตั้ง Oracle Instant Client (Middleware สำหรับฐานข้อมูล)
