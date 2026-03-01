@@ -44,6 +44,12 @@ if exist "C:\oracle_instantclient\instantclient_19_25\oci.dll" (
     goto StartWeb
 )
 
+if exist "C:\instantclient_23_8\oci.dll" (
+    echo [OK] พบ Oracle Instant Client 23_8 ถูกติดตั้งไว้แล้ว (เพิ่มลง PATH ชั่วคราว)
+    set "PATH=%PATH%;C:\instantclient_23_8"
+    goto StartWeb
+)
+
 goto InstallOracle
 
 :InstallOracle
