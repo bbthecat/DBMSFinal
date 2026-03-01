@@ -49,11 +49,15 @@ if %errorlevel% neq 0 (
 cd web
 
 echo.
-echo [1/2] กำลังตรวจสอบและติดตั้ง NPM Dependencies...
+echo [1/3] กำลังตรวจสอบและติดตั้ง NPM Dependencies...
 call npm install
 
 echo.
-echo [2/2] กำลังเริ่มทำงาน Server...
+echo [2/3] กำลังเตรียมโครงสร้างฐานข้อมูล (Tables / Mock Data)...
+node setup-db.js
+
+echo.
+echo [3/3] กำลังเริ่มทำงาน Server...
 echo ===================================================
 call npm start
 
