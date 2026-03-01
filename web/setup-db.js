@@ -76,8 +76,57 @@ async function setupDatabase() {
     }
 
     try {
-        await db.initialize();
-        console.log('\n[1] เชื่อมต่อ Oracle สำเร็จ!\n');
+        let connected = false;
+        let retries = 0;
+        const maxRetries = 15;
+
+        while (!connected && retries < maxRetries) {
+            try {
+                // ขั้นตอนที่ 0: ลองล็อกอินด้วยสิทธิ์ System ก่อน เพื่อสร้าง User ให้โปรเจกต์
+                const systemConn = await db.oracledb.getConnection({
+                    user: 'system',
+                    password: 'p123',
+                    connectString: process.env.DB_CONNECT_STRING
+                });
+
+                console.log('\n[0] กำลังเตรียมเชื่อมต่อด้วย System เพื่อสร้างผู้ใช้ฐานข้อมูล (dbms_dev)...');
+
+                // ลบ User เก่า (ถ้ามี) และสร้างใหม่ + ให้สิทธิ์ทั้งหมด
+                try {
+                    await systemConn.execute(`
+                		DECLARE
+						   userexist integer;
+						BEGIN
+						  SELECT count(*) INTo userexist FROM dba_users WHERE username='DBMS_DEV';
+						  IF (userexist = 0) THEN
+						    EXECUTE IMMEDIATE 'CREATE USER dbms_dev IDENTIFIED BY 1234';
+						  END IF;
+						END;
+                	`);
+                    await systemConn.execute('GRANT ALL PRIVILEGES TO dbms_dev');
+                    // ถ้าเป็น Oracle เวอร์ชันใหม่ๆ (12c+) อาจจะต้องให้ Quota
+                    try { await systemConn.execute('ALTER USER dbms_dev QUOTA UNLIMITED ON USERS'); } catch (e) { }
+                } catch (e) {
+                    // ไม่เป็นไร ถ้าสร้างไม่ได้อาจจะเพราะมีอยู่แล้ว
+                } finally {
+                    await systemConn.close();
+                }
+
+                // ขั้นตอนที่ 1: ล็อกอินจริงๆ ด้วย User ของโปรเจกต์เพื่อพร้อมเตรียมตาราง
+                await db.initialize();
+                connected = true;
+                console.log('[1] เชื่อมต่อ Oracle ด้วย User โปรแกรม (dbms_dev) สำเร็จ!\n');
+
+            } catch (initErr) {
+                retries++;
+                console.log(`⏳ รอให้ Database พร้อมทำงาน... (ครั้งที่ ${retries}/${maxRetries}  รอ 10 วิ)`);
+                if (retries >= maxRetries) {
+                    throw new Error('หมดเวลารอ Database ติดต่อไม่ได้ โปรดตรวจสอบว่ามี Oracle Database ทำงานอยู่หรือไม่');
+                }
+                // Sleep 10 seconds
+                await new Promise(resolve => setTimeout(resolve, 10000));
+            }
+        }
 
         // วนลูปตามโฟลเดอร์
         for (let task of runDirs) {

@@ -5,6 +5,20 @@ echo "    Pharmacy Management System - Auto Setup (Mac)"
 echo "==================================================="
 echo ""
 
+# 0. Check and Run DB via Docker (If available)
+if command -v docker &> /dev/null && docker compose version &> /dev/null; then
+    echo "[OK] ตรวจพบ Docker! กำลังเปิดใช้งานฐานข้อมูล Oracle ให้อัตโนมัติ..."
+    docker compose up -d
+    echo "---------------------------------------------------"
+elif command -v docker-compose &> /dev/null; then
+    echo "[OK] ตรวจพบ Docker! กำลังเปิดใช้งานฐานข้อมูล Oracle ให้อัตโนมัติ..."
+    docker-compose up -d
+    echo "---------------------------------------------------"
+else
+    echo "[!] ไม่พบ Docker ในการรัน Database อัตโนมัติ (คุณต้องเปิด Oracle ด้วยตัวเอง)"
+fi
+echo ""
+
 # 1. Check for Homebrew (essential for Mac setup)
 if ! command -v brew &> /dev/null; then
     echo "[!] ไม่พบ Homebrew ในเครื่อง (จำเป็นสำหรับติดตั้งโปรแกรมบน Mac)"

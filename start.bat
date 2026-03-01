@@ -7,6 +7,24 @@ echo     Pharmacy Management System - Auto Setup And Run
 echo ===================================================
 echo.
 
+:: 0. ตรวจสอบและรันฐานข้อมูลผ่าน Docker (ถ้าระบบมี)
+docker compose version >nul 2>nul
+if %errorlevel% equ 0 (
+    echo [OK] ตรวจพบ Docker! กำลังเปิดใช้งานฐานข้อมูล Oracle ให้อัตโนมัติ...
+    docker compose up -d
+    echo ---------------------------------------------------
+) else (
+    where docker-compose >nul 2>nul
+    if %errorlevel% equ 0 (
+        echo [OK] ตรวจพบ Docker! กำลังเปิดใช้งานฐานข้อมูล Oracle ให้อัตโนมัติ...
+        docker-compose up -d
+        echo ---------------------------------------------------
+    ) else (
+        echo [!] ไม่พบ Docker ในการรัน Database อัตโนมัติ (คุณต้องเปิด Oracle ด้วยตัวเอง)
+    )
+)
+echo.
+
 :: 1. ตรวจสอบและติดตั้ง Node.js
 where node >nul 2>nul
 if %errorlevel% equ 0 (
