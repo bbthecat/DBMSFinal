@@ -9,12 +9,18 @@ echo.
 
 :: 1. ตรวจสอบและติดตั้ง Node.js
 where node >nul 2>nul
-if %errorlevel% neq 0 (
-    goto InstallNode
-) else (
-    echo [OK] พบ Node.js ในเครื่องแล้ว
+if %errorlevel% equ 0 (
+    echo [OK] พบ Node.js ในระบบแล้ว (ผ่าน PATH)
     goto CheckOracle
 )
+
+if exist "C:\Program Files\nodejs\node.exe" (
+    echo [OK] พบ Node.js ถูกติดตั้งไว้แล้ว (เพิ่มลง PATH ชั่วคราว)
+    set "PATH=%PATH%;C:\Program Files\nodejs\"
+    goto CheckOracle
+)
+
+goto InstallNode
 
 :InstallNode
 echo [!] ไม่พบ Node.js ในเครื่อง กำลังดาวน์โหลดและติดตั้ง (อาจใช้เวลาสักครู่)...
@@ -27,12 +33,18 @@ set "PATH=%PATH%;C:\Program Files\nodejs\"
 :CheckOracle
 :: 2. ตรวจสอบและติดตั้ง Oracle Instant Client (Middleware สำหรับฐานข้อมูล)
 where oci.dll >nul 2>nul
-if %errorlevel% neq 0 (
-    goto InstallOracle
-) else (
-    echo [OK] พบ Oracle Instant Client แล้ว
+if %errorlevel% equ 0 (
+    echo [OK] พบ Oracle Instant Client ในระบบแล้ว (ผ่าน PATH)
     goto StartWeb
 )
+
+if exist "C:\oracle_instantclient\instantclient_19_25\oci.dll" (
+    echo [OK] พบ Oracle Instant Client ถูกติดตั้งไว้แล้ว (เพิ่มลง PATH ชั่วคราว)
+    set "PATH=%PATH%;C:\oracle_instantclient\instantclient_19_25"
+    goto StartWeb
+)
+
+goto InstallOracle
 
 :InstallOracle
 echo [!] ไม่พบ Oracle Instant Client ในเครื่อง (จำเป็นสำหรับการต่อฐานข้อมูล)
