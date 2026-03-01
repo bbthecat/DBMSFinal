@@ -5,11 +5,14 @@
 --         ยอดรวมเริ่มต้น (0) และรหัสพนักงานที่ทำการทำรายการ
 -- =====================================================================
 CREATE OR REPLACE PROCEDURE sp_create_sale(
-    p_sale_id   IN VARCHAR2,
     p_emp_id    IN VARCHAR2,
+    p_sale_id   OUT VARCHAR2,
     p_result    OUT VARCHAR2
 ) AS
 BEGIN
+    -- สร้างรหัสบิลใหม่ (เช่น SAL0000000101)
+    p_sale_id := 'SAL' || LPAD(seq_sale.NEXTVAL, 10, '0');
+
     -- Insert ข้อมูลบิลขาย โดยเซ็ตยอดรวมเป็น 0 ไปก่อน 
     -- (ยอดรวมจริงจะถูกอัปเดตผ่าน Trigger/Procedure ย่อยตอนเพิ่มรายการยา)
     INSERT INTO Sales_Header (Sale_ID, Sale_date, Total_Amount, EMP_ID)
