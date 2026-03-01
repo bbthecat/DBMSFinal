@@ -1,6 +1,6 @@
-require('dotenv').config();
 const fs = require('fs');
 const path = require('path');
+require('dotenv').config({ path: path.join(__dirname, '.env') });
 const db = require('./db');
 
 // ລำดับโฟลเดอร์ที่ต้องรันคำสั่ง (1. ตาราง, 2. โปรซีเดอร์/ทริกเกอร์, 3. ข้อมูลดัมมี่)
@@ -66,6 +66,13 @@ async function setupDatabase() {
     console.log('\n=============================================');
     console.log('🔄 เริ่มต้นระบบสร้างฐานข้อมูลอัตโนมัติ (Auto DB Setup)');
     console.log('=============================================\n');
+
+    // ตรวจสอบข้อมูลแบบง่าย
+    if (!process.env.DB_CONNECT_STRING) {
+        console.error('\n❌ [ข้อผิดพลาด] ไม่พบการตั้งค่าในไฟล์ .env');
+        console.error('กรุณาเข้าไปในโฟลเดอร์ web เปิดไฟล์ .env และแก้ไขข้อมูลฐานข้อมูลให้ถูกต้องก่อนรัน!\n');
+        process.exit(1);
+    }
 
     try {
         await db.initialize();
