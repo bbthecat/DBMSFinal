@@ -5,7 +5,9 @@ echo "    Pharmacy Management System - Auto Setup (Mac)"
 echo "==================================================="
 echo ""
 
-# 0. Check and Run DB via Docker (If available)
+# ============================================================
+# 0. ตรวจสอบและรันฐานข้อมูลผ่าน Docker (ถ้าระบบมี)
+# ============================================================
 if command -v docker &> /dev/null && docker compose version &> /dev/null; then
     echo "[OK] ตรวจพบ Docker! กำลังเปิดใช้งานฐานข้อมูล Oracle ให้อัตโนมัติ..."
     docker compose up -d
@@ -19,66 +21,85 @@ else
 fi
 echo ""
 
-# 1. Check for Homebrew (essential for Mac setup)
+# ============================================================
+# 1. ตรวจสอบ Homebrew (จำเป็นสำหรับ Mac)
+# ============================================================
 if ! command -v brew &> /dev/null; then
-    echo "[!] ไม่พบ Homebrew ในเครื่อง (จำเป็นสำหรับติดตั้งโปรแกรมบน Mac)"
-    echo "[!] กำลังติดตั้ง Homebrew..."
+    echo "[!] ไม่พบ Homebrew กำลังติดตั้งอัตโนมัติ..."
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-    
-    # Add brew to path for Apple Silicon or Intel
+    # เพิ่ม brew เข้า PATH สำหรับ Apple Silicon หรือ Intel
     if [[ $(uname -m) == 'arm64' ]]; then
         eval "$(/opt/homebrew/bin/brew shellenv)"
     else
         eval "$(/usr/local/bin/brew shellenv)"
     fi
+    echo "[OK] ติดตั้ง Homebrew สำเร็จ!"
 else
     echo "[OK] พบ Homebrew ในเครื่องแล้ว"
 fi
 
-# 2. Check and install Node.js
+# ============================================================
+# 2. ตรวจสอบและติดตั้ง Node.js
+# ============================================================
 if ! command -v node &> /dev/null; then
     echo "[!] ไม่พบ Node.js กำลังติดตั้งผ่าน Homebrew..."
-    brew install node
-    echo "[!] ติดตั้ง Node.js สำเร็จ!"
+    brew install node@20
+    brew link node@20 --force --overwrite
+    echo "[OK] ติดตั้ง Node.js สำเร็จ!"
 else
-    echo "[OK] พบ Node.js ในเครื่องแล้ว"
+    echo "[OK] พบ Node.js $(node --version) ในเครื่องแล้ว"
 fi
 
-# 3. Check and install Oracle Instant Client (macOS)
-# Node.js oracledb module on macOS actually requires the Instant Client to be downloaded and unzipped.
-# We will download it to ~/Downloads/oracle_instantclient and set DYLD_LIBRARY_PATH
+# ตรวจสอบอีกรอบว่า node ใช้งานได้จริงหรือไม่
+if ! command -v node &> /dev/null; then
+    echo "[ERROR] ยังพบ Node.js ไม่ได้ กรุณาปิดแล้วรัน script ใหม่อีกครั้ง"
+    echo "[ERROR] หรือติดตั้งด้วยตนเองจาก https://nodejs.org/"
+    exit 1
+fi
+
+# ============================================================
+# 3. ตรวจสอบและติดตั้ง Oracle Instant Client (สำหรับ Mac)
+# ============================================================
 export ORACLE_DIR="$HOME/oracle_instantclient"
 export INSTANT_CLIENT_DIR="$ORACLE_DIR/instantclient_19_8"
 
-if [ ! -d "$INSTANT_CLIENT_DIR" ]; then
-    echo "[!] ไม่พบ Oracle Instant Client สำหรับ macOS"
-    echo "[!] กำลังสร้างโฟลเดอร์ $ORACLE_DIR..."
-    mkdir -p "$ORACLE_DIR"
-    
-    echo "[!] กำลังดาวน์โหลด Oracle Instant Client (Basic package 19.8 for Mac)..."
-    curl -o "$ORACLE_DIR/instantclient.zip" "https://download.oracle.com/otn_software/mac/instantclient/198000/instantclient-basic-macos.x64-19.8.0.0.0dbru.zip"
-    
-    echo "[!] กำลังแตกไฟล์..."
-    unzip -q "$ORACLE_DIR/instantclient.zip" -d "$ORACLE_DIR"
-    
-    # Create necessary symlink for libclntsh.dylib on macOS
-    ln -s "$INSTANT_CLIENT_DIR/libclntsh.dylib.19.1" "$INSTANT_CLIENT_DIR/libclntsh.dylib" 2>/dev/null
-    
-    echo "[!] ติดตั้ง Oracle Instant Client (Mac) สำเร็จ!"
-    echo "[!] หมายเหตุ: ห้ามลบโฟลเดอร์ $ORACLE_DIR"
+if [ -d "$INSTANT_CLIENT_DIR" ]; then
+    echo "[OK] พบ Oracle Instant Client ในเครื่องแล้ว ($INSTANT_CLIENT_DIR)"
 else
-    echo "[OK] พบ Oracle Instant Client ในเครื่องแล้ว"
+    echo "[!] ไม่พบ Oracle Instant Client กำลังดาวน์โหลดอัตโนมัติ..."
+    mkdir -p "$ORACLE_DIR"
+
+    echo "[!] กำลังดาวน์โหลด Oracle Instant Client (Basic package 19.8 for Mac)..."
+    curl -L -o "$ORACLE_DIR/instantclient.zip" \
+        "https://download.oracle.com/otn_software/mac/instantclient/198000/instantclient-basic-macos.x64-19.8.0.0.0dbru.zip"
+
+    echo "[!] กำลังแตกไฟล์ไปยัง $ORACLE_DIR..."
+    unzip -q "$ORACLE_DIR/instantclient.zip" -d "$ORACLE_DIR"
+
+    # สร้าง symlink สำหรับ libclntsh.dylib บน macOS
+    ln -sf "$INSTANT_CLIENT_DIR/libclntsh.dylib.19.1" "$INSTANT_CLIENT_DIR/libclntsh.dylib" 2>/dev/null
+
+    echo "[OK] ติดตั้ง Oracle Instant Client สำเร็จ!"
 fi
 
-# Set crucial environment variable for Oracle on Mac
+# ตั้งค่าตัวแปรสำหรับ Oracle บน Mac (สำคัญมาก!)
 export DYLD_LIBRARY_PATH="$INSTANT_CLIENT_DIR:$DYLD_LIBRARY_PATH"
 
-# 4. Enter the web directory and start
-cd web || exit
+# ============================================================
+# 4. เข้าไปที่โฟลเดอร์เว็บและเริ่มทำงาน
+# ============================================================
+cd "$(dirname "$0")/web" || exit 1
 
 echo ""
-echo "[1/3] กำลังตรวจสอบและติดตั้ง NPM Dependencies..."
-npm install
+echo "---------------------------------------------------"
+
+# ตรวจสอบ node_modules
+if [ -d "node_modules" ]; then
+    echo "[1/3] ตรวจพบ NPM Dependencies ถูกโหลดไว้แล้ว (ข้ามการโหลดซ้ำ)"
+else
+    echo "[1/3] กำลังติดตั้ง NPM Dependencies ครั้งแรก..."
+    npm install
+fi
 
 echo ""
 echo "[2/3] กำลังเตรียมโครงสร้างฐานข้อมูล (Tables / Mock Data)..."
