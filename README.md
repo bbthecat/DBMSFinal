@@ -1,134 +1,79 @@
-# 🏥 Pharmacy Management System (ระบบบริหารจัดการร้านยา)
+# 🏥 Pharmacy Management System (ระบบจัดการร้านขายยา)
 
-โปรเจกต์ระบบบริหารจัดการร้านยาแบบครบวงจร (Web Application) ออกแบบมาสำหรับการทำงานจริงในร้านยา รองรับระบบขายหน้าร้าน ระบบจัดการคลังสินค้าแบบรายล็อต และระบบการสั่งซื้อสินค้า
+โปรเจกต์ระบบสารสนเทศ (Web Application) สำหรับใช้ในการบริหารร้านขายยา ควบคุมสินค้าคงคลัง จัดการพนักงาน และระบบขายหน้าร้าน (POS) 
 
-ระบบนี้พัฒนาขึ้นเพื่อเป็นโปรเจกต์ในรายวิชา **Database Management System (DBMS)** โดยเน้นอิมพลีเมนต์โครงสร้างฐานข้อมูลที่มีความซับซ้อน เช่น การใช้งาน Stored Procedures, Triggers, Views และ Foreign Keys อย่างเต็มรูปแบบ
+ระบบนี้ถูกพัฒนาขึ้นเพื่อสาธิตการทำงานร่วมกับ **Database Management System (DBMS)** เชิงลึก โดยมีการนำความสามารถของ Oracle Database มาใช้งานอย่างเต็มรูปแบบ เช่น **Stored Procedures, Triggers, Views และ Foreign Keys** ช่วยรับประกันความถูกต้องของข้อมูล (Data Integrity) ในระดับฐานข้อมูล
 
 ---
 
-## 💻 Tech Stack
+## 🛠 Tech Stack
 - **Frontend:** HTML5, CSS3 (Vanilla), JavaScript, Chart.js (สำหรับ Dashboard)
 - **Backend:** Node.js (Express.js)
-- **Database:** Oracle Database (Express Edition 21c)
+- **Database:** Oracle Database (Express Edition 11g/21c)
 - **Driver:** `oracledb` (Node.js Connector)
 
 ---
 
-## ✨ ฟีเจอร์เด่น (Key Features)
+## 🚀 วิธีการติดตั้งและรันระบบ (อัปเดตใหม่ ง่ายที่สุด!)
+
+ด้วยสคริปต์แบบอัตโนมัติ (Auto-Setup Script) คุณสามารถเอาโฟลเดอร์นี้ไปรันที่คอมพิวเตอร์เครื่องไหนก็ได้ใน **ดับเบิลคลิกเดียว!**
+
+> **สิ่งที่ต้องมีก่อนในเครื่อง:** 
+> ต้องมี **Oracle Database** ทำงานรันอยู่ที่ระบบก่อน (เช่น ผ่าน Docker พอร์ต `1521` หรือลงในเครื่องคอมพิวเตอร์)
+
+**ขั้นตอนการใช้งาน:**
+1. นำโฟลเดอร์ `DBMSFinal` วางที่เครื่องคอมพิวเตอร์
+2. ดับเบิลคลิกเปิดไฟล์ **`start.bat`**
+3. หน้าต่าง Command Prompt จะเริ่มการทำงาน:
+   - ตรวจสอบและติดตั้ง **Node.js** (หากเครื่องไม่มี) แบบอัตโนมัติ
+   - ตรวจสอบและติดตั้ง **Oracle Instant Client** แบบอัตโนมัติ (Middleware สำหรับเชื่อมต่อฐานข้อมูล)
+   - ดาวน์โหลดไลบรารี NPM (`npm install`)
+   - **รันฐานข้อมูลอัตโนมัติ (`setup-db.js`):** ระบบจะอ่านไฟล์จากโฟลเดอร์ `Table/`, `Table/Procedures/` และ `Data/` แล้วนำไปสร้างตารางพร้อมใส่ข้อมูลตัวอย่าง (Mock Data) ลง Database ให้อัตโนมัติ (ไม่ต้องเข้า DBeaver เองแล้ว!)
+   - เปิดเซิร์ฟเวอร์เว็บแอปพลิเคชัน
+4. 🌐 เปิดเบราว์เซอร์ไปที่: `http://localhost:3000`
+
+---
+
+## ✨ ความสามารถหลักของระบบ (Key Features)
 
 1. 🛒 **POS (Point of Sale) - ระบบขายหน้าร้าน:**
-   - ค้นหายาได้รวดเร็ว (รองรับชื่อสามัญ และชื่อการค้า)
-   - เพิ่มสินค้าลงตะกร้า คำนวณยอดเงินและเงินทอนอัตโนมัติ
-   - **ระบบตัดสต็อกขั้นสูงแบบ FIFO (First-In, First-Out):** เมื่อขายยา ระบบจะตัดยอดจากล็อตที่ "วันหมดอายุใกล้ที่สุด" (Earliest Expiry) หรือ "นำเข้าก่อน" อัตโนมัติ
+   - หน้าจอใช้งานง่าย (เพิ่มยาสูงสุดทีละหลายรายการ)
+   - คำนวณยอดเงินรวมและส่วนลดอัตโนมัติ
+   - **หลักการตัดสต็อกแบบ FIFO (First-In, First-Out):** เมื่อมีการขาย ระบบย่อย `sp_add_sale_item` จะเลือกตัดสต็อกจาก "ล็อตวันหมดอายุใกล้สุด" หรือ "ล็อตที่เข้ามาก่อน" ช่วยลดของเสีย
 
-2. 📦 **Inventory & Product Batches - ระบบคลังสินค้าผ่าน Batch:**
-   - สินค้า 1 ชนิด สามารถมีข้อมูลหลายล็อต (Batch) ได้ 
-   - ระบบแจ้งเตือนสต็อกเหลือน้อย (อ้างอิงจากยอดรวมทุกล็อตเทียบกับ Reorder Point)
-   - หน้า UI แบบ Grouping ช่วยให้ดูง่ายว่ายาแต่ละตัว คงเหลือล็อตไหนบ้าง วันหมดอายุเมื่อไหร่
-   - รองรับสถานะยา (ปกติ, ใกล้หมดอายุ, หมดอายุแล้ว) แบบเรียลไทม์
+2. 📦 **Inventory & Product Batches - จัดการคลังและล็อต:**
+   - สินค้า 1 ชนิด สามารถแยกเก็บเป็นหลายล็อต (Batch) ได้
+   - มีจุดสั่งซื้อซ้ำ (Reorder Point) คอยเตือนเวลาของเหลือน้อย
+   - หน้า UI รองรับ Grouping โดยสินค้าชนิดเดียวกันแต่คนละล็อต จะถูกรวมยอดให้ผู้ใช้เห็นแค่อันเดียวเพื่อง่ายต่อการบริหาร
 
-3. 🚚 **Purchasing - ระบบจัดซื้อสินค้า:**
-   - บันทึกการสั่งซื้อ (PO) จาก Supplier
-   - ฟีเจอร์ "รับสินค้า (Receive)": เมื่อยืนยันรับเข้า ระบบจะเปลี่ยนสถานะบิล และทำการเพิ่ม "ล็อตใหม่ (Product Batches)" ของยาเข้าคลังสินค้าอัตโนมัติ
+3. 🚚 **Purchasing - ระบบจัดการจัดซื้อ:**
+   - สร้างใบสั่งซื้อ (PO - Purchase Order) จากตัวแทนจำหน่าย
+   - รับของเข้าคลัง: เรียกโพรซีเจอร์ `sp_receive_purchase` ที่จะเอาของที่รับเข้าใน PO ไปแปลงเป็น **Lot ใหม่ (Batch)** ลงในสต็อกอัตโนมัติ
 
-4. 📊 **Dashboard & Reports:**
-   - สรุปยอดขายรายวันและยอดขายรวม
-   - สรุปสินค้ายอดฮิต (Best Sellers)
-   - พิมพ์ใบเสร็จย้อนหลัง (Receipt)
+4. 👥 **Human Resources - ระบบพนักงานและสิทธิ์:**
+   - `sp_upsert_employee` รองรับการเพิ่มพนักงานใหม่/แก้ไขคนเดิมในคำสั่งเดียว
+   - แบ่งสิทธิ์เป็น **Manager (จัดการได้ทุกเมนู)** และ **Cashier (ใช้ได้แค่ขายหน้าร้านเท่านั้น)**
+   - ใช้ระบบ Session และ Middleware ของ Express.js ในการกันคนไม่มีสิทธิ์ตามหลักความปลอดภัย
 
-5. 👥 **Master Data Management:**
-   - ระบบจัดการพนักงาน, ผู้จัดจำหน่าย (Supplier), หมวดหมู่ยา และข้อมูลยา (Drugs Catalog)
-
----
-
-## �️ โครงสร้างฐานข้อมูล (Database Design)
-
-ระบบฐานข้อมูลออกแบบมาอย่างรัดกุมด้วย Oracle Database
-> ไฟล์ Source Code และ SQL ทั้งหมดอยู่ที่โฟลเดอร์ `/Table` และ `/Data`
-
-- **Tables (ตารางหลัก):** 
-  `Employees`, `Category`, `Supplier`, `Product`, `Product_Batches`, `Purchase_Header`, `Purchase_Detail`, `Sales_Header`, `Sales_Detail`
-- **Stored Procedures:** (เขียนไว้ฝั่ง DB เพื่อความรวดเร็วและปลอดภัย)
-  - `sp_create_sale` / `sp_add_sale_item`: สำหรับบันทึกบิลขายและตัดสต็อก FIFO
-  - `sp_create_purchase` / `sp_add_purchase_item`: สำหรับเปิดใบสั่งซื้อ
-  - `sp_receive_purchase`: จัดการปิดบิลซื้อและเพิ่มล็อตสินค้าเข้าคลังอัตโนมัติ
-  - `sp_get_dashboard`: ดึงชุดข้อมูลทั้งหมดสำหรับหน้า Dashboard ผ่าน SYS_REFCURSOR
+5. 📈 **Reports & Audit - รายงานสถิติและประวัติการแก้:**
+   - **Dashboard (Chart.js):** สรุปยอดขายรายเดือน, Top 5 สินค้าขายดี
+   - **Trigger (Audit Log):** ติดตามการเปลี่ยนราคาสินค้า, ใครเป็นคนแก้ และประวัติแจ้งเตือนสินค้าตกจุดสั่งซื้อ
 
 ---
 
-## � วิธีการติดตั้งและรันโปรเจกต์ (Installation Guide)
+## 📂 โครงสร้างฐานข้อมูล (DBMS Features Spotlight)
+### Stored Procedures สำคัญ
+- `sp_create_sale` / `sp_add_sale_item` (ควบคุมการออกบิล POS และตัดสต็อกแบบ FIFO)
+- `sp_create_purchase` / `sp_add_purchase_item` / `sp_receive_purchase` (คุมวงจรรับสินค้า)
+- `sp_upsert_employee` / `sp_upsert_product`
+- `sp_delete_employee` / `sp_delete_product`
 
-### สิ่งที่ต้องมีเบื้องต้น
-- [Node.js](https://nodejs.org/en/) (เวอร์ชัน 16 หรือสูงกว่า)
-- Oracle Database 21c XE สามาถเชื่อมต่อแบบ Local หรือผ่านโปรแกรมจำลอง LAN (เช่น Hamachi)
-
-### ขั้นตอนที่ 1: การติดตั้ง Backend / Frontend
-1. **Clone Repository (หรือแตกไฟล์ zip โฟลเดอร์ของโปรเจกต์):**
-   ```bash
-   git clone <URL_REPO>
-   cd DBMSFinal
-   ```
-2. **ติดตั้ง Required Packages:** เข้าไปที่โฟลเดอร์ `web` แล้วรัน `npm install`
-   ```bash
-   cd web
-   npm install
-   ```
-   แพ็กเกจหลักที่ใช้คือ `express`, `oracledb`, `express-session`, `cors` 
-
-### ขั้นตอนที่ 2: การตั้งค่าฐานข้อมูล (Database Setup)
-หากคุณนำไปรันบนเวอร์เซอร์ใหม่ที่ "ยังไม่มีฐานข้อมูล" คุณจำเป็นต้องสร้าง User ขึ้นมาก่อนเพื่อให้ระบบมีที่เก็บตาราง
-
-1. เปิด SQL Plus หรือ Oracle SQL Developer 
-2. ล็อกอินเข้าฐานข้อมูลด้วยบัญชี Admin สูงสุด (เช่น `SYSTEM` หรือ `SYS as SYSDBA`)
-3. **สร้าง User สำหรับโปรเจกต์ (เช่น dbms_dev)** โดยรันคำสั่ง SQL ต่อไปนี้:
-   ```sql
-   ALTER SESSION SET "_ORACLE_SCRIPT"=true; -- (สำหรับ Oracle 12c ขึ้นไป)
-   CREATE USER dbms_dev IDENTIFIED BY password_ของคุณ;
-   GRANT CONNECT, RESOURCE, DBA TO dbms_dev;
-   ```
-4. กด Disconnect แล้ว **ล็อกอินเข้าใหม่** ด้วย User ที่เพิ่งสร้าง (`dbms_dev`)
-5. นำไฟล์สคริปต์ในโฟลเดอร์ `Table` มารันตามลำดับเพื่อสร้าง Tables / Sequences / และ Stored Procedures
-6. นำไฟล์สคริปต์ในโฟลเดอร์ `Data` มารันตามลำดับเพื่อเพิ่มข้อมูลจำลอง (Seed Data)
-
-### ขั้นตอนที่ 3: การเชื่อมต่อ (Configuration)
-เปิดไฟล์ `web/db.js` ขึ้นมา และแก้ไขค่า **Connection String** ให้ตรงกับเซิร์ฟเวอร์ฐานข้อมูลของคุณ
-```javascript
-// ตัวอย่างในไฟล์ web/db.js
-const connAttrs = {
-    user: 'dbms_dev',
-    password: 'password_ของคุณ',
-    connectString: 'localhost:1521/XE' // เปลี่ยนให้ตรงกับ IP และ Port ของคุณ (เช่น 25.33.x.x กรณีใช้ Hamachi)
-};
-```
-
-### ขั้นตอนที่ 4: สตาร์ทโปรเจกต์ (Start Server)
-เมื่อตั้งค่าทุกอย่างเสร็จแล้ว ตอนนี้คุณสามารถรันเว็บแอปได้เลย!
-1. ตรวจสอบให้แน่ใจว่าอยู่ในโฟลเดอร์ `/web` (ที่มีโฟลเดอร์ public และไฟล์ server.js)
-2. รันคำสั่งนี้ใน Command Prompt หรือ Terminal
-   ```bash
-   node server.js
-   ```
-3. หากสำเร็จ Terminal จะเด้งข้อความแจ้งว่า:
-   `Server is running on port 3000`
-   `✅ เชื่อมต่อ Oracle DB สำเร็จ`
-
-### ขั้นตอนที่ 5: เข้าใช้งาน
-1. เปิด Web Browser (Google Chrome / Edge)
-2. พิมพ์ URL: `http://localhost:3000`
-3. ล็อกอินเข้าสู่ระบบด้วย Username ปกติ (ไม่ต้องใช้รหัสผ่าน หรือทดสอบล็อกอินด้วยรหัสมั่วไปก่อนตามการตั้งค่าจำลองปัจจุบัน)
-   > *แนะนำให้ใช้พนักงานระดับ Manager (เช่น "กัญญารัตน์", "วิดาภา") เพื่อให้เห็นเมนูครบทุกส่วน*
+### Triggers ที่ใช้ดักจับข้อมูล (Audit)
+- `trg_product_audit` (บันทึกใครแก้ราคายากี่บาทบ้าง)
+- `trg_low_stock_alert` (แจ้งเตือนอัตโนมัติถ้าของหมด)
+- `trg_validate_sale_qty` (กันไม่ให้ขายของเกินสต็อก)
 
 ---
 
-## � Troubleshooting (ปัญหาที่พบบ่อย)
-
-- **`ORA-12170: TNS:Connect timeout occurred`**: 
-  เซิร์ฟเวอร์ Node.js ติดต่อกับ Oracle DB ไม่ได้ ให้เช็คว่าเปิด Hamachi เเล้วหรือยัง และ IP ใน `db.js` ถูกต้องหรือไม่ 
-- **`DPI-1047: Cannot locate a 64-bit Oracle Client library`**:
-  การใช้รันแพ็กเกจ `oracledb` บนเครื่อง Windows คุณอาจจะต้องดาวน์โหลด [Oracle Instant Client](https://www.oracle.com/database/technologies/instant-client/downloads.html) แตกไฟล์ไว้และเพิ่มเข้าไปที่ System Environment Variables (`PATH`) ของ Windows
-- **หน้าเว็บดึงข้อมูลมาไม่ครบ**:
-  ให้เช็คว่าคุณได้รันสคริปต์ Stored Procedure ครบทั้งหมดหรือไม่ ลองดูในโฟลเดอร์ `Table/Procedures`
-
----
-
-*ถ้าติดปัญหาตรงไหน สามารถทักมาสอบถาม หรือเปิด Issues ทิ้งไว้ใน Repo ได้เลยครับ ยินดีช่วยเหลือให้รันได้ 100% ครับ!* 🎉
+**ผู้จัดทำ:** (แก้ไขชื่อผู้จัดทำของคุณที่นี่)
+**วิชา:** Database Management Systems
