@@ -1502,7 +1502,7 @@ async function printReceipt(saleId) {
                 .total { font-size: 16px; font-weight: bold; }
                 @media print { body { margin: 0; } }
             </style></head><body>
-            <div class="center"><h2>💊 ร้านยา</h2><p>Pharmacy Management System</p></div>
+            <div class="center"><h2>ร้านยา ซอย 19</h2><p>Pharmacy Management System</p></div>
             <hr>
             <p>บิล: ${(h.SALE_ID || '').trim()}<br>
             วันที่: ${h.SALE_DATE_STR || ''}<br>

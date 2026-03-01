@@ -68,7 +68,7 @@ async function startServer() {
         // เปิด Server
         app.listen(PORT, () => {
             console.log('============================================');
-            console.log(`🏥 ระบบร้านยาพร้อมใช้งานแล้ว!`);
+            console.log(`ร้านยา ซอย 19 พร้อมใช้งานแล้ว!`);
             console.log(`🌐 เปิดเว็บ: http://localhost:${PORT}`);
             console.log('============================================');
         });
