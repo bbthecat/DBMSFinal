@@ -2,4 +2,5 @@ INSERT INTO Employees VALUES ('EMP00000-1','1234','Blnwza','Owner','Nattacha','A
 INSERT INTO Employees VALUES ('EMP00000-2','1234','OleKung','Emp','Ratchanon','Pradabkaew');
 INSERT INTO Employees VALUES ('EMP00000-3','1234','Jamesbond','Emp','Patipan','Pantale');
 INSERT INTO Employees VALUES ('EMP00000-4','1234','Rugsby','Emp','Arnanat','Araree');
+INSERT INTO Employees VALUES ('EMP00000-5','1234','Admin','Owner','Admin','');
 commit;
