@@ -38,9 +38,9 @@ if exist "C:\Program Files\nodejs\node.exe" (
     goto CheckOracle
 )
 
-if exist "C:\nodejs\node-v20.11.1-win-x64\node.exe" (
+if exist "C:\nodejs\node-v24.14.0-win-x64\node.exe" (
     echo [OK] พบ Node.js แบบพกพา (Portable) ถูกติดตั้งไว้แล้ว (เพิ่มลง PATH ชั่วคราว)
-    set "PATH=%PATH%;C:\nodejs\node-v20.11.1-win-x64"
+    set "PATH=%PATH%;C:\nodejs\node-v24.14.0-win-x64"
     goto CheckOracle
 )
 
@@ -52,15 +52,15 @@ set "NODE_DIR=C:\nodejs"
 if not exist "!NODE_DIR!" mkdir "!NODE_DIR!"
 
 echo [!] กำลังดาวน์โหลด Node.js...
-powershell -Command "Invoke-WebRequest -Uri 'https://nodejs.org/dist/v20.11.1/node-v20.11.1-win-x64.zip' -OutFile '%TEMP%\nodejs.zip'"
+powershell -Command "Invoke-WebRequest -Uri 'https://nodejs.org/dist/v24.14.0/node-v24.14.0-win-x64.zip' -OutFile '%TEMP%\nodejs.zip'"
 
 echo [!] กำลังแตกไฟล์ไปยัง !NODE_DIR!...
 powershell -Command "Expand-Archive -Path '%TEMP%\nodejs.zip' -DestinationPath '!NODE_DIR!' -Force"
 
 echo [!] กำลังเพิ่มที่อยู่ไฟล์ลงในตัวแปรระบบ (System PATH)...
-powershell -Command "$userPath = [Environment]::GetEnvironmentVariable('PATH', 'User'); $nodePath = 'C:\nodejs\node-v20.11.1-win-x64'; if ($userPath -notlike '*'+$nodePath+'*') { [Environment]::SetEnvironmentVariable('PATH', $userPath + ';' + $nodePath, 'User') }"
+powershell -Command "$userPath = [Environment]::GetEnvironmentVariable('PATH', 'User'); $nodePath = 'C:\nodejs\node-v24.14.0-win-x64'; if ($userPath -notlike '*'+$nodePath+'*') { [Environment]::SetEnvironmentVariable('PATH', $userPath + ';' + $nodePath, 'User') }"
 
-set "PATH=%PATH%;C:\nodejs\node-v20.11.1-win-x64"
+set "PATH=%PATH%;C:\nodejs\node-v24.14.0-win-x64"
 echo [!] ติดตั้ง Node.js สำเร็จ!
 
 :CheckOracle
@@ -107,12 +107,14 @@ echo [!] ติดตั้ง Oracle Instant Client สำเร็จ!
 :: 3. เข้าไปที่โฟลเดอร์รหัสผ่านเว็บและรัน
 cd web
 
+:: บังคับให้เซสชันนี้รู้จัก Node.js ชัวร์ๆ ไม่ว่าจะติดตั้งแบบไหนมา
+set "PATH=%PATH%;C:\Program Files\nodejs;C:\nodejs\node-v24.14.0-win-x64"
+
 echo.
 if exist "node_modules\" (
-    echo [1/3] ตรวจพบ NPM Dependencies แพ็กเกจถูกโหลดไว้แล้ว (ข้ามการโหลดซ้ำ)
+    echo [1/3] ตรวจพบ NPM Dependencies ถูกโหลดไว้แล้ว (ข้ามการโหลดซ้ำ)
 ) else (
     echo [1/3] กำลังตรวจสอบและติดตั้ง NPM Dependencies ครั้งแรก...
-    set "PATH=%PATH%;C:\nodejs\node-v20.11.1-win-x64"
     call npm install
 )
 
