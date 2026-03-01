@@ -1,9 +1,6 @@
 # Dependencies
 node_modules/
 
-# Environment files
-web/.env
-.env
 
 # Logs
 logs
