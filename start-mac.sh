@@ -6,23 +6,7 @@ echo "==================================================="
 echo ""
 
 # ============================================================
-# 0. ตรวจสอบและรันฐานข้อมูลผ่าน Docker (ถ้าระบบมี)
-# ============================================================
-if command -v docker &> /dev/null && docker compose version &> /dev/null; then
-    echo "[OK] ตรวจพบ Docker! กำลังเปิดใช้งานฐานข้อมูล Oracle ให้อัตโนมัติ..."
-    docker compose up -d
-    echo "---------------------------------------------------"
-elif command -v docker-compose &> /dev/null; then
-    echo "[OK] ตรวจพบ Docker! กำลังเปิดใช้งานฐานข้อมูล Oracle ให้อัตโนมัติ..."
-    docker-compose up -d
-    echo "---------------------------------------------------"
-else
-    echo "[!] ไม่พบ Docker ในการรัน Database อัตโนมัติ (คุณต้องเปิด Oracle ด้วยตัวเอง)"
-fi
-echo ""
-
-# ============================================================
-# 1. ตรวจสอบ Homebrew (จำเป็นสำหรับ Mac)
+# 1. ตรวจสอบและติดตั้ง Homebrew (จำเป็นสำหรับทุกอย่างบน Mac)
 # ============================================================
 if ! command -v brew &> /dev/null; then
     echo "[!] ไม่พบ Homebrew กำลังติดตั้งอัตโนมัติ..."
@@ -39,7 +23,63 @@ else
 fi
 
 # ============================================================
-# 2. ตรวจสอบและติดตั้ง Node.js
+# 2. ตรวจสอบและติดตั้ง Docker Desktop
+# ============================================================
+if ! command -v docker &> /dev/null; then
+    echo "[!] ไม่พบ Docker กำลังติดตั้ง Docker Desktop ผ่าน Homebrew..."
+    brew install --cask docker
+    echo "[OK] ติดตั้ง Docker Desktop สำเร็จ!"
+    echo "[!] กำลังเปิด Docker Desktop รอสักครู่..."
+    open /Applications/Docker.app
+    # รอให้ Docker daemon พร้อมทำงาน (สูงสุด 60 วินาที)
+    echo "[!] รอให้ Docker พร้อมทำงาน..."
+    for i in $(seq 1 12); do
+        if docker info &> /dev/null; then
+            echo "[OK] Docker พร้อมทำงานแล้ว!"
+            break
+        fi
+        echo "    (รอ... $((i*5))/60 วินาที)"
+        sleep 5
+    done
+else
+    echo "[OK] พบ Docker ในเครื่องแล้ว"
+    # เปิด Docker Desktop ถ้ายังไม่รัน
+    if ! docker info &> /dev/null; then
+        echo "[!] Docker ยังไม่ได้รัน กำลังเปิด Docker Desktop..."
+        open /Applications/Docker.app
+        echo "[!] รอให้ Docker พร้อมทำงาน..."
+        for i in $(seq 1 12); do
+            if docker info &> /dev/null; then
+                echo "[OK] Docker พร้อมทำงานแล้ว!"
+                break
+            fi
+            echo "    (รอ... $((i*5))/60 วินาที)"
+            sleep 5
+        done
+    fi
+fi
+
+# ============================================================
+# 3. เปิดฐานข้อมูล Oracle ผ่าน Docker
+# ============================================================
+echo ""
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+
+if docker compose version &> /dev/null; then
+    echo "[OK] กำลังเปิดใช้งานฐานข้อมูล Oracle..."
+    docker compose -f "$SCRIPT_DIR/docker-compose.yml" up -d
+elif command -v docker-compose &> /dev/null; then
+    echo "[OK] กำลังเปิดใช้งานฐานข้อมูล Oracle..."
+    docker-compose -f "$SCRIPT_DIR/docker-compose.yml" up -d
+else
+    echo "[!] Docker ยังพร้อมใช้งานไม่ได้ โปรดเปิด Docker Desktop แล้วรัน script ใหม่"
+    exit 1
+fi
+echo "---------------------------------------------------"
+echo ""
+
+# ============================================================
+# 4. ตรวจสอบและติดตั้ง Node.js
 # ============================================================
 if ! command -v node &> /dev/null; then
     echo "[!] ไม่พบ Node.js กำลังติดตั้งผ่าน Homebrew..."
@@ -58,37 +98,35 @@ if ! command -v node &> /dev/null; then
 fi
 
 # ============================================================
-# 3. ตรวจสอบและติดตั้ง Oracle Instant Client (สำหรับ Mac)
+# 5. ตรวจสอบและติดตั้ง Oracle Instant Client (สำหรับ Mac)
 # ============================================================
 export ORACLE_DIR="$HOME/oracle_instantclient"
 export INSTANT_CLIENT_DIR="$ORACLE_DIR/instantclient_19_8"
 
 if [ -d "$INSTANT_CLIENT_DIR" ]; then
-    echo "[OK] พบ Oracle Instant Client ในเครื่องแล้ว ($INSTANT_CLIENT_DIR)"
+    echo "[OK] พบ Oracle Instant Client ในเครื่องแล้ว"
 else
     echo "[!] ไม่พบ Oracle Instant Client กำลังดาวน์โหลดอัตโนมัติ..."
     mkdir -p "$ORACLE_DIR"
 
-    echo "[!] กำลังดาวน์โหลด Oracle Instant Client (Basic package 19.8 for Mac)..."
+    echo "[!] กำลังดาวน์โหลด Oracle Instant Client (Basic 19.8 for Mac)..."
     curl -L -o "$ORACLE_DIR/instantclient.zip" \
         "https://download.oracle.com/otn_software/mac/instantclient/198000/instantclient-basic-macos.x64-19.8.0.0.0dbru.zip"
 
-    echo "[!] กำลังแตกไฟล์ไปยัง $ORACLE_DIR..."
+    echo "[!] กำลังแตกไฟล์..."
     unzip -q "$ORACLE_DIR/instantclient.zip" -d "$ORACLE_DIR"
-
-    # สร้าง symlink สำหรับ libclntsh.dylib บน macOS
     ln -sf "$INSTANT_CLIENT_DIR/libclntsh.dylib.19.1" "$INSTANT_CLIENT_DIR/libclntsh.dylib" 2>/dev/null
 
     echo "[OK] ติดตั้ง Oracle Instant Client สำเร็จ!"
 fi
 
-# ตั้งค่าตัวแปรสำหรับ Oracle บน Mac (สำคัญมาก!)
+# ตั้งค่าตัวแปรสำคัญสำหรับ Oracle บน Mac
 export DYLD_LIBRARY_PATH="$INSTANT_CLIENT_DIR:$DYLD_LIBRARY_PATH"
 
 # ============================================================
-# 4. เข้าไปที่โฟลเดอร์เว็บและเริ่มทำงาน
+# 6. เข้าไปที่โฟลเดอร์เว็บและเริ่มทำงาน
 # ============================================================
-cd "$(dirname "$0")/web" || exit 1
+cd "$SCRIPT_DIR/web" || exit 1
 
 echo ""
 echo "---------------------------------------------------"
