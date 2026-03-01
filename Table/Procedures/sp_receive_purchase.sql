@@ -37,9 +37,9 @@ BEGIN
         v_counter := v_counter + 1;
         
         -- ขั้นตอนที่ 3: จำลองรูปแบบรหัสล็อต (Data Generation Logic)
-        -- รหัส Batch จะใช้ฟอร์แมต: BAT + ปีเดือนวันชั่วโมงนาที + เลขรันนิ่ง (เช่น BAT250301143001)
-        v_batch_id := 'BAT' || TO_CHAR(SYSDATE, 'YYMMDDHH24MI') || LPAD(v_counter, 2, '0');
-        v_batch_id := SUBSTR(v_batch_id, 1, 13);
+        -- รหัส Batch จะใช้ฟอร์แมต: B + ปีเดือนวันชั่วโมงนาที + เลขรันนิ่ง
+        -- B + YYMMDDHH24MI (10 chars) + 2 chars = 13 chars พอดี
+        v_batch_id := SUBSTR('B' || TO_CHAR(SYSDATE, 'YYMMDDHH24MI') || LPAD(v_counter, 2, '0'), 1, 13);
 
         -- ขั้นตอนที่ 4: เติมยาเข้าคลัง (เสกของเข้า Product_Batches)
         -- รับยาเข้ามาเท่าไหร่ (Order_Qty) ก็ให้มีของคงเหลือพร้อมขายเท่านั้น (Remaining_Qty = Order_Qty)

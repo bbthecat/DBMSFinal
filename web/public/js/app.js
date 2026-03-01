@@ -967,7 +967,11 @@ async function showCreatePurchaseModal() {
             <form id="create-po-form" class="form-grid">
                 <div class="form-group">
                     <label>เลขที่ Invoice <span style="color:red">*</span></label>
-                    <input type="text" id="po-invoice" required placeholder="เช่น INV-2025-001">
+                    <input type="text" id="po-invoice" required placeholder="เช่น INV07" maxlength="5">
+                </div>
+                <div class="form-group">
+                    <label>วันที่สั่งซื้อ <span style="color:red">*</span></label>
+                    <input type="date" id="po-date" required>
                 </div>
                 <div class="form-group">
                     <label>บริษัทคู่ค้า (Supplier) <span style="color:red">*</span></label>
@@ -1019,6 +1023,12 @@ async function showCreatePurchaseModal() {
             </form>
         `);
 
+        // Set Default Date
+        setTimeout(() => {
+            const dp = document.getElementById('po-date');
+            if (dp) dp.valueAsDate = new Date();
+        }, 10);
+
         // ผูก Event Submit
         document.getElementById('create-po-form').onsubmit = async (e) => {
             e.preventDefault();
@@ -1028,6 +1038,7 @@ async function showCreatePurchaseModal() {
 
             try {
                 const Invoice_Number = document.getElementById('po-invoice').value.trim();
+                const Purchase_Date = document.getElementById('po-date').value;
                 const Supplier_ID = document.getElementById('po-supplier').value;
 
                 // ปุ่ม loading
@@ -1037,7 +1048,7 @@ async function showCreatePurchaseModal() {
 
                 const res = await api('/api/purchases', {
                     method: 'POST',
-                    body: JSON.stringify({ Invoice_Number, Supplier_ID, items: poCart })
+                    body: JSON.stringify({ Invoice_Number, Purchase_Date, Supplier_ID, items: poCart })
                 });
                 showToast('สร้างใบสั่งซื้อสำเร็จ!', 'success');
                 closeModal();

@@ -77,8 +77,11 @@ router.get('/:id', async (req, res) => {
 router.post('/', requireManager, async (req, res) => {
     let conn;
     try {
-        const { Invoice_Number, Supplier_ID, items } = req.body;
+        const { Invoice_Number, Purchase_Date, Supplier_ID, items } = req.body;
         const EMP_ID = req.session.user.EMP_ID;
+
+        // format date as string
+        const pDateStr = Purchase_Date ? Purchase_Date : new Date().toISOString().split('T')[0];
 
         let totalCost = 0;
         items.forEach(item => { totalCost += item.Order_Qty * item.Cost_Price; });
@@ -87,12 +90,13 @@ router.post('/', requireManager, async (req, res) => {
 
         // 1. sp_create_purchase → Purchase_ID สร้างจาก Sequence
         const headerResult = await conn.execute(
-            `BEGIN sp_create_purchase(:p_invoice, :p_supplier_id, :p_emp_id, :p_total_cost, :p_purchase_id, :p_result); END;`,
+            `BEGIN sp_create_purchase(:p_invoice, :p_supplier_id, :p_emp_id, :p_total_cost, TO_DATE(:p_purchase_date, 'YYYY-MM-DD'), :p_purchase_id, :p_result); END;`,
             {
                 p_invoice: Invoice_Number,
                 p_supplier_id: Supplier_ID,
                 p_emp_id: EMP_ID,
                 p_total_cost: totalCost,
+                p_purchase_date: pDateStr,
                 p_purchase_id: { dir: oracledb.BIND_OUT, type: oracledb.STRING, maxSize: 20 },
                 p_result: { dir: oracledb.BIND_OUT, type: oracledb.STRING, maxSize: 200 }
             }
