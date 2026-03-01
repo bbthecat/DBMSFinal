@@ -36,9 +36,10 @@ async function executeSqlFile(filePath, type) {
             .filter(q => q.length > 0);
     } else {
         // Table/Insert มักจบด้วย ;
-        // ลบคอมเมนต์และแยกคำสั่ง
+        // แค่แยกด้วย ; ยกเว้น ; ที่อยู่ใน Single Quote ('...')
         const noComments = content.replace(/--.*$/gm, '').replace(/\/\*[\s\S]*?\*\//g, '');
-        queries = noComments.split(';')
+        // ใช้ Regex เพื่อจับคู่เฉพาะ ; ที่ไม่ได้อยู่ใน Quote
+        queries = noComments.split(/;(?=(?:[^']*'[^']*')*[^']*$)/)
             .map(q => q.trim())
             .filter(q => q.length > 0);
     }
@@ -57,7 +58,6 @@ async function executeSqlFile(filePath, type) {
             }
             // แสดงเฉพาะ Error ที่ดูร้ายแรง
             console.error(`\x1b[31m[!] ข้อผิดพลาดในไฟล์ ${path.basename(filePath)}:\x1b[0m ${err.message}`);
-            // console.error(`Query: ${q.substring(0, 50)}...`);
         }
     }
 }

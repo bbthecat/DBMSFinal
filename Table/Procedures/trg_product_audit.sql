@@ -1,20 +1,6 @@
 -- Trigger: บันทึก Log เมื่อมีการเปลี่ยนแปลงข้อมูลสินค้า (Audit Trail)
 -- INSERT / UPDATE / DELETE จะถูกบันทึกลงตาราง Product_Audit_Log
 
--- สร้างตาราง Audit Log ก่อน
-CREATE TABLE Product_Audit_Log (
-    Log_ID      NUMBER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    Action_Type VARCHAR2(50),
-    Product_ID  CHAR(13),
-    Product_Name VARCHAR2(100),
-    Changed_By  VARCHAR2(100) DEFAULT USER,
-    Changed_At  TIMESTAMP DEFAULT SYSTIMESTAMP,
-    Old_Price   NUMBER,
-    New_Price   NUMBER,
-    Details     VARCHAR2(500)
-);
-/
-
 CREATE OR REPLACE TRIGGER trg_product_audit
 AFTER INSERT OR UPDATE OR DELETE ON Product
 FOR EACH ROW

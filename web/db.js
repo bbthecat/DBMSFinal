@@ -59,7 +59,6 @@ async function execute(sql, binds = {}, opts = {}) {
         const result = await connection.execute(sql, binds, opts);
         return result;
     } catch (err) {
-        console.error('❌ รัน SQL ไม่สำเร็จ:', err);
         throw err;
     } finally {
         if (connection) {

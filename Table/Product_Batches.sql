@@ -6,7 +6,7 @@ CREATE TABLE Product_Batches (
 	Lot_Number		char(10),
 	Received_Qty	number,
 	Remaining_Qty	number,
-	Import_Date		DATE SYS DATE,
+	Import_Date		DATE DEFAULT SYSDATE,
 	Product_ID		char(13),
 	Purchase_ID		char(13),
 	CONSTRAINT batch_PK	PRIMARY KEY (Batch_ID),

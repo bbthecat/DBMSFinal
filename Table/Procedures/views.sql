@@ -8,7 +8,7 @@ SELECT
     COUNT(DISTINCT sh.EMP_ID) AS Emp_Count
 FROM Sales_Header sh
 GROUP BY TO_CHAR(sh.Sale_date, 'YYYY-MM'), TO_CHAR(sh.Sale_date, 'Month', 'NLS_DATE_LANGUAGE=THAI')
-ORDER BY Sale_Month DESC;
+ORDER BY Sale_Month DESC
 /
 
 -- View: สรุปสต็อกสินค้าทั้งหมด
@@ -34,7 +34,7 @@ LEFT JOIN Category c ON p.Category_ID = c.Category_ID
 LEFT JOIN Product_Batches pb ON p.Product_ID = pb.Product_ID
 GROUP BY p.Product_ID, p.Product_Name, p.Generic_Name, c.Category_Name,
          p.Drug_type, p.Unit_Price, p.Reorder_Point
-ORDER BY Total_Stock ASC;
+ORDER BY Total_Stock ASC
 /
 
 -- View: สินค้าขายดี
@@ -49,5 +49,5 @@ FROM Sales_Detail sd
 JOIN Product_Batches pb ON sd.Batch_ID = pb.Batch_ID
 JOIN Product p ON pb.Product_ID = p.Product_ID
 GROUP BY p.Product_Name, p.Generic_Name
-ORDER BY Total_Sold DESC;
+ORDER BY Total_Sold DESC
 /
