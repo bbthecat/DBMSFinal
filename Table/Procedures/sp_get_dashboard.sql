@@ -17,7 +17,7 @@ BEGIN
     SELECT NVL(SUM(Total_Amount), 0), COUNT(*)
     INTO p_today_revenue, p_today_count
     FROM Sales_Header
-    WHERE TRUNC(Sale_date) = TRUNC(SYSDATE);
+    WHERE TRUNC(Sale_date) = TRUNC(CAST(CURRENT_TIMESTAMP AS DATE));
 
     -- จำนวนสินค้าทั้งหมด
     SELECT COUNT(*) INTO p_product_count FROM Product;
@@ -37,10 +37,10 @@ BEGIN
         SELECT pb.Batch_ID, pb.Lot_Number,
                TO_CHAR(pb.EXP_date, 'YYYY-MM-DD') AS EXP_DATE,
                pb.Remaining_Qty, p.Product_Name,
-               ROUND(pb.EXP_date - SYSDATE) AS Days_Left
+               ROUND(pb.EXP_date - CAST(CURRENT_TIMESTAMP AS DATE)) AS Days_Left
         FROM Product_Batches pb
         LEFT JOIN Product p ON pb.Product_ID = p.Product_ID
-        WHERE pb.EXP_date BETWEEN SYSDATE AND SYSDATE + 90
+        WHERE pb.EXP_date BETWEEN CAST(CURRENT_TIMESTAMP AS DATE) AND CAST(CURRENT_TIMESTAMP AS DATE) + 90
           AND pb.Remaining_Qty > 0
         ORDER BY pb.EXP_date ASC;
 

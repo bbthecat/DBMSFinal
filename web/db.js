@@ -46,6 +46,16 @@ async function close() {
 }
 
 /**
+ * ตั้ง timezone เป็น Asia/Bangkok ให้ connection
+ * เพื่อให้ CURRENT_TIMESTAMP คืนเวลาไทย (UTC+7)
+ */
+async function setTimezone(connection) {
+    try {
+        await connection.execute(`ALTER SESSION SET TIME_ZONE = 'Asia/Bangkok'`);
+    } catch (e) { /* ignore */ }
+}
+
+/**
  * รัน SQL Query พร้อม bind parameters
  * @param {string} sql - คำสั่ง SQL
  * @param {object} binds - ค่า Parameters
@@ -56,6 +66,7 @@ async function execute(sql, binds = {}, opts = {}) {
     let connection;
     try {
         connection = await pool.getConnection();
+        await setTimezone(connection);
         const result = await connection.execute(sql, binds, opts);
         return result;
     } catch (err) {
@@ -77,7 +88,9 @@ async function execute(sql, binds = {}, opts = {}) {
  * @returns {object} Oracle Connection
  */
 async function getConnection() {
-    return await pool.getConnection();
+    const conn = await pool.getConnection();
+    await setTimezone(conn);
+    return conn;
 }
 
 module.exports = { initialize, close, execute, getConnection, oracledb };

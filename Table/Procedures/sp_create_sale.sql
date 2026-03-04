@@ -16,7 +16,7 @@ BEGIN
     -- Insert ข้อมูลบิลขาย โดยเซ็ตยอดรวมเป็น 0 ไปก่อน 
     -- (ยอดรวมจริงจะถูกอัปเดตผ่าน Trigger/Procedure ย่อยตอนเพิ่มรายการยา)
     INSERT INTO Sales_Header (Sale_ID, Sale_date, Total_Amount, EMP_ID)
-    VALUES (p_sale_id, SYSDATE, 0, p_emp_id);
+    VALUES (p_sale_id, CURRENT_TIMESTAMP, 0, p_emp_id);
 
     p_result := 'SUCCESS'; -- ส่งผลลัพธ์ว่าสำเร็จ
 EXCEPTION

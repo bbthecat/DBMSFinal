@@ -53,9 +53,15 @@ router.get('/:id', async (req, res) => {
         }
 
         const details = await db.execute(
-            `SELECT pd.*, p.Product_Name, p.Generic_Name
+            `SELECT pd.*, p.Product_Name, p.Generic_Name,
+                    TO_CHAR(pb.MFG_date, 'DD/MM/YYYY') AS MFG_DATE,
+                    TO_CHAR(pb.EXP_date, 'DD/MM/YYYY') AS EXP_DATE,
+                    TRIM(pb.Lot_Number) AS LOT_NUMBER
              FROM Purchase_Detail pd
              LEFT JOIN Product p ON pd.Product_ID = p.Product_ID
+             LEFT JOIN Product_Batches pb
+                    ON TRIM(pb.Purchase_ID) = TRIM(pd.Purchase_ID)
+                   AND TRIM(pb.Product_ID)  = TRIM(pd.Product_ID)
              WHERE TRIM(pd.Purchase_ID) = :id`,
             { id }
         );
@@ -140,31 +146,82 @@ router.post('/', requireManager, async (req, res) => {
 });
 
 /**
+ * GET /api/purchases/:id/items
+ * ดึงรายการสินค้าใน Purchase_Detail เพื่อให้ Frontend แสดงฟอร์มกรอก Lot/EXP ต่อ item
+ */
+router.get('/:id/items', async (req, res) => {
+    try {
+        const id = req.params.id.trim();
+        const result = await db.execute(
+            `SELECT pd.P_Detail_ID, pd.Product_ID, pd.Order_Qty, pd.Cost_Price,
+                    p.Product_Name
+             FROM Purchase_Detail pd
+             LEFT JOIN Product p ON pd.Product_ID = p.Product_ID
+             WHERE TRIM(pd.Purchase_ID) = :id
+             ORDER BY pd.P_Detail_ID`,
+            { id }
+        );
+        res.json(result.rows);
+    } catch (err) {
+        res.status(500).json({ error: 'ดึงรายการสินค้าไม่ได้' });
+    }
+});
+
+/**
  * PUT /api/purchases/:id/receive
- * รับสินค้าจาก Supplier ผ่าน sp_receive_purchase
- * อัพเดทสถานะ + สร้าง Product_Batches อัตโนมัติ
+ * รับสินค้าจาก Supplier ผ่าน sp_receive_purchase (ต่อ item)
+ * Body: { items: [{ detail_id, lot_number, mfg_date, exp_date }] }
+ * วน loop เรียก SP ทีละ item พร้อมข้อมูล Lot/EXP จริง
  */
 router.put('/:id/receive', requireManager, async (req, res) => {
     let conn;
     try {
         const id = req.params.id.trim();
+        const { items } = req.body; // รับ array ของ item พร้อม lot/date
+
+        if (!items || items.length === 0) {
+            return res.status(400).json({ error: 'ไม่มีรายการสินค้า' });
+        }
+
         conn = await db.getConnection();
 
-        const result = await conn.execute(
-            `BEGIN sp_receive_purchase(:p_purchase_id, :p_result); END;`,
-            {
-                p_purchase_id: id,
-                p_result: { dir: oracledb.BIND_OUT, type: oracledb.STRING, maxSize: 200 }
-            }
-        );
+        let successCount = 0;
+        for (let i = 0; i < items.length; i++) {
+            const item = items[i];
+            const isLast = (i === items.length - 1); // item สุดท้าย → อัพเดทสถานะบิล
 
-        const msg = result.outBinds.p_result;
-        if (!msg.startsWith('SUCCESS')) {
-            throw new Error(msg);
+            const result = await conn.execute(
+                `BEGIN sp_receive_purchase(
+                    :p_purchase_id,
+                    :p_detail_id,
+                    :p_lot_number,
+                    TO_DATE(:p_mfg_date, 'YYYY-MM-DD'),
+                    TO_DATE(:p_exp_date, 'YYYY-MM-DD'),
+                    :p_counter,
+                    :p_update_status,
+                    :p_result
+                ); END;`,
+                {
+                    p_purchase_id: id,
+                    p_detail_id: String(item.detail_id).trim(),
+                    p_lot_number: item.lot_number || ('LOT' + new Date().toISOString().slice(2, 8).replace(/-/g, '')),
+                    p_mfg_date: item.mfg_date,
+                    p_exp_date: item.exp_date,
+                    p_counter: i + 1,
+                    p_update_status: isLast ? 'Y' : 'N',
+                    p_result: { dir: oracledb.BIND_OUT, type: oracledb.STRING, maxSize: 200 }
+                }
+            );
+
+            const msg = result.outBinds.p_result;
+            if (!msg.startsWith('SUCCESS')) {
+                throw new Error(msg);
+            }
+            successCount++;
         }
 
         await conn.commit();
-        res.json({ message: msg.replace('SUCCESS: ', '') });
+        res.json({ message: `รับสินค้าสำเร็จ! สร้าง ${successCount} Batch เรียบร้อย` });
 
     } catch (err) {
         if (conn) try { await conn.rollback(); } catch (e) { }

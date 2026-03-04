@@ -5,6 +5,7 @@ services:
     container_name: oracle_local
     environment:
       - ORACLE_PASSWORD=p123
+      - TZ=Asia/Bangkok
     ports:
       - "1521:1521"
     volumes:

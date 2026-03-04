@@ -424,25 +424,31 @@ function selectPOSCategory(catId) {
 }
 
 function addToCart(batches) {
-    // เลือก batch ที่หมดอายุก่อน (FEFO)
-    const batch = batches.find(b => b.REMAINING_QTY > 0);
-    if (!batch) { showToast('สินค้าหมด', 'warning'); return; }
+    // batches มาเรียงตาม EXP_date ASC แล้ว (FEFO - ใกล้หมดอายุก่อน)
+    // กรองเฉพาะ batch ที่ยังมีของ
+    const availBatches = batches.filter(b => b.REMAINING_QTY > 0);
+    if (availBatches.length === 0) { showToast('สินค้าหมด', 'warning'); return; }
 
-    const existing = cart.find(c => c.BATCH_ID === batch.BATCH_ID);
+    const productId = (availBatches[0].PRODUCT_ID || '').trim();
+    const totalStock = availBatches.reduce((s, b) => s + b.REMAINING_QTY, 0);
+
+    // หาสินค้าเดิมในตะกร้า (จับคู่ด้วย Product_ID)
+    const existing = cart.find(c => c.PRODUCT_ID === productId);
     if (existing) {
-        if (existing.Quantity >= batch.REMAINING_QTY) {
+        if (existing.Quantity >= totalStock) {
             showToast('สินค้าในสต็อกไม่พอ', 'warning');
             return;
         }
         existing.Quantity++;
     } else {
         cart.push({
-            BATCH_ID: batch.BATCH_ID,
-            PRODUCT_NAME: batch.PRODUCT_NAME,
-            Unit_Price: batch.UNIT_PRICE,
+            PRODUCT_ID: productId,
+            PRODUCT_NAME: availBatches[0].PRODUCT_NAME,
+            Unit_Price: availBatches[0].UNIT_PRICE,
             Quantity: 1,
             Discount: 0,
-            maxQty: batch.REMAINING_QTY
+            maxQty: totalStock,
+            batches: availBatches  // เก็บ batches ทั้งหมดไว้สำหรับ checkout (FEFO)
         });
     }
     renderCartItems();
@@ -510,12 +516,26 @@ function filterPOSProducts() {
 async function checkout() {
     if (cart.length === 0) return;
     // ID สร้างจาก Sequence อัตโนมัติใน DB ไม่ต้องส่งจาก Frontend
-    const items = cart.map(item => ({
-        Batch_ID: item.BATCH_ID,
-        Quantity: item.Quantity,
-        Unit_Price: item.Unit_Price,
-        Discount: item.Discount
-    }));
+    const items = [];
+    cart.forEach(item => {
+        let remainingQtyNeeded = item.Quantity;
+
+        // item.batches ถูกเรียงตามวันหมดอายุ (FEFO) มาแล้ว
+        for (const batch of item.batches) {
+            if (remainingQtyNeeded <= 0) break;
+
+            const qtyToTake = Math.min(remainingQtyNeeded, batch.REMAINING_QTY);
+            if (qtyToTake > 0) {
+                items.push({
+                    Batch_ID: batch.BATCH_ID,
+                    Quantity: qtyToTake,
+                    Unit_Price: item.Unit_Price,
+                    Discount: item.Discount // หรือจะหารส่วนลดตามสัดส่วนก็ได้ แต่เอาแบบง่ายก่อน
+                });
+                remainingQtyNeeded -= qtyToTake;
+            }
+        }
+    });
     try {
         await api('/api/sales', {
             method: 'POST',
@@ -1122,14 +1142,114 @@ window.renderPoCart = function () {
     totalEl.innerText = formatCurrency(total);
 };
 
-// ฟังก์ชันรับสินค้าเข้าคลัง
+// ฟังก์ชันรับสินค้าเข้าคลัง (เปิด Modal กรอก Lot/EXP ต่อ item ก่อนบันทึก)
 async function receivePurchase(purchaseId) {
-    if (!confirm(`✅ ยืนยันการรับสินค้าเข้าคลัง? (ออเดอร์: ${purchaseId})\n\nระบบจะทำการอัปเดตสถานะบิล สร้างล็อตสินค้า (Product_Batches) และเพิ่มสต็อกคงเหลือในร้านให้อัตโนมัติ`)) return;
-
     try {
-        const res = await api(`/api/purchases/${purchaseId}/receive`, { method: 'PUT' });
-        showToast(res.message || 'รับสินค้าเข้าสต็อกสำเร็จ!', 'success');
-        loadPurchases(); // รีเฟรชตารางดูสถานะ Received
+        // ดึงรายการสินค้าในบิลก่อน เพื่อแสดงฟอร์มกรอก Lot/EXP
+        const items = await api(`/api/purchases/${purchaseId}/items`);
+
+        if (items.length === 0) {
+            showToast('ไม่พบรายการสินค้าในบิลนี้', 'warning');
+            return;
+        }
+
+        // สร้างวันผลิตและวันหมดอายุ default (วันนี้, +2 ปี)
+        const today = new Date().toISOString().split('T')[0];
+        const twoYears = new Date();
+        twoYears.setFullYear(twoYears.getFullYear() + 2);
+        const defaultExp = twoYears.toISOString().split('T')[0];
+
+        // สร้าง HTML ฟอร์มกรอกข้อมูลต่อ item
+        const itemRows = items.map((item, i) => `
+            <div style="background:#f8f9ff; border:1px solid #dce3f5; border-radius:10px; padding:16px; margin-bottom:14px;">
+                <div style="display:flex; align-items:center; gap:8px; margin-bottom:12px;">
+                    <span class="material-symbols-rounded" style="color:var(--primary);font-size:1.1rem;">medication</span>
+                    <strong style="font-size:1rem; color:#222;">${item.PRODUCT_NAME}</strong>
+                    <span class="badge badge-info" style="margin-left:auto;">จำนวน: ${item.ORDER_QTY} ชิ้น</span>
+                </div>
+                <div class="form-row" style="gap:10px;">
+                    <div class="form-group" style="flex:1.5;">
+                        <label style="font-size:0.8rem; color:var(--text-secondary);">🏷️ เลข Lot</label>
+                        <input type="text" id="lot-${i}" placeholder="เช่น LOT260304" maxlength="10"
+                               style="width:100%; padding:8px 10px; border:1px solid #ccc; border-radius:6px; font-size:0.9rem;"
+                               value="LOT${today.replace(/-/g, '').slice(2)}">
+                    </div>
+                    <div class="form-group" style="flex:1;">
+                        <label style="font-size:0.8rem; color:var(--text-secondary);">📅 วันผลิต</label>
+                        <input type="date" id="mfg-${i}"
+                               style="width:100%; padding:8px 10px; border:1px solid #ccc; border-radius:6px; font-size:0.9rem;"
+                               value="${today}">
+                    </div>
+                    <div class="form-group" style="flex:1;">
+                        <label style="font-size:0.8rem; color:var(--text-secondary);">⏰ วันหมดอายุ <span style="color:red">*</span></label>
+                        <input type="date" id="exp-${i}"
+                               style="width:100%; padding:8px 10px; border:1px solid #ccc; border-radius:6px; font-size:0.9rem;"
+                               value="${defaultExp}" required>
+                    </div>
+                </div>
+            </div>
+            <input type="hidden" id="detail-id-${i}" value="${(item.P_DETAIL_ID || '').trim()}">
+        `).join('');
+
+        openModal(`📦 รับสินค้าเข้าคลัง — บิล ${purchaseId}`, `
+            <div style="margin-bottom:14px; padding:10px 14px; background:#fffbe6; border:1px solid #ffe58f; border-radius:8px; font-size:0.88rem; color:#7a5800;">
+                <span class="material-symbols-rounded" style="font-size:1rem; vertical-align:middle;">info</span>
+                กรุณากรอก <strong>เลข Lot</strong>, <strong>วันผลิต</strong>, และ <strong>วันหมดอายุ</strong> ของยาแต่ละรายการให้ตรงกับกล่องยาจริง
+            </div>
+            <form id="receive-form">
+                ${itemRows}
+                <div class="modal-footer" style="margin-top:16px;">
+                    <button type="button" class="btn btn-outline" onclick="closeModal()">ยกเลิก</button>
+                    <button type="submit" class="btn btn-success" id="receive-submit-btn">
+                        <span class="material-symbols-rounded">inventory</span> ยืนยันรับสินค้า
+                    </button>
+                </div>
+            </form>
+        `);
+
+        // ผูก Submit
+        document.getElementById('receive-form').onsubmit = async (e) => {
+            e.preventDefault();
+
+            // Validate: วันหมดอายุต้องหลังจากวันผลิต
+            for (let i = 0; i < items.length; i++) {
+                const mfg = document.getElementById(`mfg-${i}`).value;
+                const exp = document.getElementById(`exp-${i}`).value;
+                if (!exp) {
+                    showToast(`กรุณากรอกวันหมดอายุของ ${items[i].PRODUCT_NAME}`, 'warning');
+                    return;
+                }
+                if (exp <= mfg) {
+                    showToast(`วันหมดอายุของ ${items[i].PRODUCT_NAME} ต้องหลังจากวันผลิต`, 'warning');
+                    return;
+                }
+            }
+
+            const submitBtn = document.getElementById('receive-submit-btn');
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<span class="material-symbols-rounded" style="animation:spin 1s linear infinite;">sync</span> กำลังบันทึก...';
+
+            try {
+                const itemsPayload = items.map((item, i) => ({
+                    detail_id: document.getElementById(`detail-id-${i}`).value,
+                    lot_number: document.getElementById(`lot-${i}`).value.trim() || `LOT${today.replace(/-/g, '').slice(2)}`,
+                    mfg_date: document.getElementById(`mfg-${i}`).value,
+                    exp_date: document.getElementById(`exp-${i}`).value
+                }));
+
+                const res = await api(`/api/purchases/${purchaseId}/receive`, {
+                    method: 'PUT',
+                    body: JSON.stringify({ items: itemsPayload })
+                });
+                showToast(res.message || 'รับสินค้าเข้าสต็อกสำเร็จ!', 'success');
+                closeModal();
+                loadPurchases();
+            } catch (err) {
+                showToast(err.message, 'error');
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<span class="material-symbols-rounded">inventory</span> ยืนยันรับสินค้า';
+            }
+        };
     } catch (err) {
         showToast(err.message, 'error');
     }
@@ -1138,18 +1258,32 @@ async function receivePurchase(purchaseId) {
 async function viewPurchaseDetail(id) {
     try {
         const data = await api(`/api/purchases/${id}`);
+        const isReceived = data.header.STATUS === 'รับสินค้าแล้ว' || data.header.STATUS === 'Received';
         openModal(`รายละเอียดใบสั่งซื้อ: ${id}`, `
             <p style="margin-bottom:8px;color:var(--text-secondary)">Supplier: ${data.header.SUPPLIER_NAME} | พนักงาน: ${data.header.EMP_NAME}</p>
-            <p style="margin-bottom:12px;color:var(--text-secondary)">วันที่: ${data.header.PURCHASE_DATE_STR} | สถานะ: ${data.header.STATUS}</p>
+            <p style="margin-bottom:12px;color:var(--text-secondary)">วันที่: ${data.header.PURCHASE_DATE_STR} | สถานะ: 
+                <span class="badge ${isReceived ? 'badge-success' : 'badge-warning'}">${data.header.STATUS}</span>
+            </p>
+            <div style="overflow-x:auto">
             <table class="data-table"><thead><tr>
-                <th>สินค้า</th><th>จำนวนสั่ง</th><th>ราคาทุน</th><th>รวม</th>
+                <th>สินค้า</th><th>จำนวนสั่ง</th><th>ราคาทุน</th>
+                <th>🏷️ Lot</th><th>📅 วันผลิต</th><th>⏰ วันหมดอายุ</th>
+                <th>รวม</th>
             </tr></thead><tbody>
             ${data.details.map(d => `<tr>
-                <td>${d.PRODUCT_NAME || '-'}</td><td>${formatNumber(d.ORDER_QTY)}</td>
+                <td><strong>${d.PRODUCT_NAME || '-'}</strong></td>
+                <td>${formatNumber(d.ORDER_QTY)}</td>
                 <td>${formatCurrency(d.COST_PRICE)}</td>
-                <td style="color:var(--accent)">${formatCurrency(d.ORDER_QTY * d.COST_PRICE)}</td>
+                <td style="font-family:monospace;font-size:0.85rem;color:var(--text-secondary)">${d.LOT_NUMBER || '-'}</td>
+                <td style="font-size:0.85rem">${d.MFG_DATE || '-'}</td>
+                <td style="font-size:0.85rem">${d.EXP_DATE
+                ? `<span class="badge ${new Date(d.EXP_DATE.split('/').reverse().join('-')) < new Date(Date.now() + 90 * 86400000) ? 'badge-warning' : 'badge-success'}">${d.EXP_DATE}</span>`
+                : '<span style="color:var(--text-muted)">-</span>'
+            }</td>
+                <td style="color:var(--accent);font-weight:600">${formatCurrency(d.ORDER_QTY * d.COST_PRICE)}</td>
             </tr>`).join('')}
             </tbody></table>
+            </div>
             <div style="text-align:right;margin-top:16px;font-size:1.1rem;font-weight:700;color:var(--accent)">
                 ยอดรวม: ${formatCurrency(data.header.TOTAL_COST)}
             </div>
