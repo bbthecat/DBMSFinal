@@ -1,0 +1,5 @@
+INSERT INTO OrderSupply_Header VALUES ('ORD0000001',TO_DATE('01-03-2026', 'DD-MM-YYYY'),'S01');
+
+
+
+

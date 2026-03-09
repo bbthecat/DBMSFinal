@@ -6,9 +6,12 @@ CREATE TABLE Purchase_Header (
 	Total_Cost		number,
 	Supplier_ID		char(3),
 	EMP_ID			char(10),
+	Order_ID	char(10),
 	CONSTRAINT	Purc_head_PK	PRIMARY KEY (Purchase_ID),
 	CONSTRAINT supfk		FOREIGN KEY (Supplier_ID)
-	REFERENCES	Supplier (Supplier_ID),
+		REFERENCES	Supplier (Supplier_ID),
 	CONSTRAINT empfk		FOREIGN KEY (EMP_ID)
-	REFERENCES	Employees (EMP_ID)
+		REFERENCES	Employees (EMP_ID),
+	CONSTRAINT ordfk		FOREIGN KEY (Order_ID)
+		REFERENCES	Orders (Order_ID)
 );

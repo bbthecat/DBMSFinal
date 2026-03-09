@@ -1,116 +1,159 @@
--- ===== Batch ของ PUR0000000001 (10-01-2025) =====
--- 1. Tylenol 500mg
+-- 1. แบบแผง
 INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Import_Date, Product_ID, Purchase_ID) 
-VALUES ('BCH0000000001', TO_DATE('01/05/2024', 'DD/MM/YYYY'), TO_DATE('01/05/2027', 'DD/MM/YYYY'), 12, 'L_TYL_0001', 100, 100, TO_DATE('12/01/2025', 'DD/MM/YYYY'), 'PRD0000000001', 'PUR0000000001');
+VALUES ('BCH0000000020', TO_DATE('15/10/2025', 'DD/MM/YYYY'), TO_DATE('15/10/2028', 'DD/MM/YYYY'), 10, 'L_SAR_0001', 50, 50, TO_DATE('10/01/2026', 'DD/MM/YYYY'), 'PRD0000000020', 'PUR0000000003');
 
--- 2. Gofen 400
+-- 2. แบบกระปุก S
 INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Import_Date, Product_ID, Purchase_ID) 
-VALUES ('BCH0000000002', TO_DATE('15/06/2024', 'DD/MM/YYYY'), TO_DATE('15/06/2026', 'DD/MM/YYYY'), 100, 'L_GOF_0001', 50, 50, TO_DATE('12/01/2025', 'DD/MM/YYYY'), 'PRD0000000002', 'PUR0000000001');
+VALUES ('BCH0000000021', TO_DATE('15/10/2025', 'DD/MM/YYYY'), TO_DATE('15/10/2028', 'DD/MM/YYYY'), 25, 'L_SAR_0001', 20, 20, TO_DATE('10/01/2026', 'DD/MM/YYYY'), 'PRD0000000021', 'PUR0000000003');
 
--- 3. Amoxil 500mg
+-- 3. แบบกระปุก M
 INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Import_Date, Product_ID, Purchase_ID) 
-VALUES ('BCH0000000003', TO_DATE('10/08/2024', 'DD/MM/YYYY'), TO_DATE('10/08/2026', 'DD/MM/YYYY'), 45, 'L_AMX_0001', 50, 50, TO_DATE('12/01/2025', 'DD/MM/YYYY'), 'PRD0000000003', 'PUR0000000001');
+VALUES ('BCH0000000022', TO_DATE('15/10/2025', 'DD/MM/YYYY'), TO_DATE('15/10/2028', 'DD/MM/YYYY'), 35, 'L_SAR_0001', 20, 20, TO_DATE('10/01/2026', 'DD/MM/YYYY'), 'PRD0000000022', 'PUR0000000003');
 
--- 4. Augmentin 1g
+-- 4. แบบกระปุก L
 INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Import_Date, Product_ID, Purchase_ID) 
-VALUES ('BCH0000000004', TO_DATE('01/09/2024', 'DD/MM/YYYY'), TO_DATE('01/09/2025', 'DD/MM/YYYY'), 350, 'L_AUG_0001', 30, 30, TO_DATE('12/01/2025', 'DD/MM/YYYY'), 'PRD0000000004', 'PUR0000000001');
+VALUES ('BCH0000000023', TO_DATE('15/10/2025', 'DD/MM/YYYY'), TO_DATE('15/10/2028', 'DD/MM/YYYY'), 50, 'L_SAR_0001', 20, 20, TO_DATE('10/01/2026', 'DD/MM/YYYY'), 'PRD0000000023', 'PUR0000000003');
 
--- 5. Zyrtec 10mg
+-- 5. แบบน้ำ
 INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Import_Date, Product_ID, Purchase_ID) 
-VALUES ('BCH0000000005', TO_DATE('20/01/2024', 'DD/MM/YYYY'), TO_DATE('20/01/2028', 'DD/MM/YYYY'), 150, 'L_ZYR_0001', 40, 40, TO_DATE('12/01/2025', 'DD/MM/YYYY'), 'PRD0000000005', 'PUR0000000001');
+VALUES ('BCH0000000024', TO_DATE('20/11/2025', 'DD/MM/YYYY'), TO_DATE('20/11/2027', 'DD/MM/YYYY'), 20, 'L_SAR_0002', 30, 30, TO_DATE('10/01/2026', 'DD/MM/YYYY'), 'PRD0000000024', 'PUR0000000003');
 
--- ===== Batch ของ PUR0000000002 (20-02-2025) =====
--- 6. CPM 4mg
+-- 6. แบบเม็ด (Pill) -> สต็อกเริ่มต้น = 0
 INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Import_Date, Product_ID, Purchase_ID) 
-VALUES ('BCH0000000006', TO_DATE('05/11/2024', 'DD/MM/YYYY'), TO_DATE('05/11/2029', 'DD/MM/YYYY'), 5, 'L_CPM_0001', 200, 200, TO_DATE('22/02/2025', 'DD/MM/YYYY'), 'PRD0000000006', 'PUR0000000002');
+VALUES ('BCH0000000025', TO_DATE('15/10/2025', 'DD/MM/YYYY'), TO_DATE('15/10/2028', 'DD/MM/YYYY'), 0, 'L_SAR_PILL', 0, 0, TO_DATE('10/01/2026', 'DD/MM/YYYY'), 'PRD0000000025', 'PUR0000000003');
 
--- 7. Gaviscon Dual Action
-INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Import_Date, Product_ID, Purchase_ID) 
-VALUES ('BCH0000000007', TO_DATE('15/10/2024', 'DD/MM/YYYY'), TO_DATE('15/10/2026', 'DD/MM/YYYY'), 120, 'L_GAV_0001', 60, 60, TO_DATE('22/02/2025', 'DD/MM/YYYY'), 'PRD0000000007', 'PUR0000000002');
 
--- 8. Miracid 20mg
 INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Import_Date, Product_ID, Purchase_ID) 
-VALUES ('BCH0000000008', TO_DATE('01/12/2024', 'DD/MM/YYYY'), TO_DATE('01/12/2027', 'DD/MM/YYYY'), 60, 'L_MIR_0001', 100, 100, TO_DATE('22/02/2025', 'DD/MM/YYYY'), 'PRD0000000008', 'PUR0000000002');
+VALUES ('BCH0000000026', TO_DATE('05/01/2026', 'DD/MM/YYYY'), TO_DATE('05/01/2029', 'DD/MM/YYYY'), 40, 'L_AMX_0001', 100, 100, TO_DATE('15/02/2026', 'DD/MM/YYYY'), 'PRD0000000026', 'PUR0000000003');
 
--- 9. Lipitor 20mg
 INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Import_Date, Product_ID, Purchase_ID) 
-VALUES ('BCH0000000009', TO_DATE('20/07/2024', 'DD/MM/YYYY'), TO_DATE('20/07/2026', 'DD/MM/YYYY'), 1000, 'L_LIP_0001', 20, 20, TO_DATE('22/02/2025', 'DD/MM/YYYY'), 'PRD0000000009', 'PUR0000000002');
+VALUES ('BCH0000000027', TO_DATE('05/01/2026', 'DD/MM/YYYY'), TO_DATE('05/01/2029', 'DD/MM/YYYY'), 100, 'L_AMX_0001', 30, 30, TO_DATE('15/02/2026', 'DD/MM/YYYY'), 'PRD0000000027', 'PUR0000000003');
 
--- 10. Concor 5mg
 INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Import_Date, Product_ID, Purchase_ID) 
-VALUES ('BCH0000000010', TO_DATE('25/08/2024', 'DD/MM/YYYY'), TO_DATE('25/08/2027', 'DD/MM/YYYY'), 250, 'L_CON_0001', 50, 50, TO_DATE('22/02/2025', 'DD/MM/YYYY'), 'PRD0000000010', 'PUR0000000002');
+VALUES ('BCH0000000028', TO_DATE('05/01/2026', 'DD/MM/YYYY'), TO_DATE('05/01/2029', 'DD/MM/YYYY'), 140, 'L_AMX_0001', 30, 30, TO_DATE('15/02/2026', 'DD/MM/YYYY'), 'PRD0000000028', 'PUR0000000003');
 
--- ===== Batch ของ PUR0000000003 (15-03-2025) =====
--- 11. Tylenol restock
 INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Import_Date, Product_ID, Purchase_ID) 
-VALUES ('BCH0000000011', TO_DATE('01/01/2025', 'DD/MM/YYYY'), TO_DATE('01/01/2028', 'DD/MM/YYYY'), 12, 'L_TYL_0002', 80, 80, TO_DATE('17/03/2025', 'DD/MM/YYYY'), 'PRD0000000001', 'PUR0000000003');
+VALUES ('BCH0000000029', TO_DATE('05/01/2026', 'DD/MM/YYYY'), TO_DATE('05/01/2029', 'DD/MM/YYYY'), 200, 'L_AMX_0001', 20, 20, TO_DATE('15/02/2026', 'DD/MM/YYYY'), 'PRD0000000029', 'PUR0000000003');
 
--- 12. Amoxil restock
 INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Import_Date, Product_ID, Purchase_ID) 
-VALUES ('BCH0000000012', TO_DATE('15/12/2024', 'DD/MM/YYYY'), TO_DATE('15/12/2026', 'DD/MM/YYYY'), 45, 'L_AMX_0002', 60, 60, TO_DATE('17/03/2025', 'DD/MM/YYYY'), 'PRD0000000003', 'PUR0000000003');
+VALUES ('BCH0000000030', TO_DATE('05/01/2026', 'DD/MM/YYYY'), TO_DATE('05/01/2028', 'DD/MM/YYYY'), 45, 'L_AMX_0002', 40, 40, TO_DATE('15/02/2026', 'DD/MM/YYYY'), 'PRD0000000030', 'PUR0000000003');
 
--- 13. Cemol 500mg
 INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Import_Date, Product_ID, Purchase_ID) 
-VALUES ('BCH0000000013', TO_DATE('10/02/2025', 'DD/MM/YYYY'), TO_DATE('10/02/2028', 'DD/MM/YYYY'), 10, 'L_CEM_0001', 100, 100, TO_DATE('17/03/2025', 'DD/MM/YYYY'), '8852978007459', 'PUR0000000003');
+VALUES ('BCH0000000031', TO_DATE('05/01/2026', 'DD/MM/YYYY'), TO_DATE('05/01/2029', 'DD/MM/YYYY'), 0, 'L_AMX_PILL', 0, 0, TO_DATE('15/02/2026', 'DD/MM/YYYY'), 'PRD0000000031', 'PUR0000000003');
 
--- ===== Batch ของ PUR0000000004 (01-04-2025) =====
--- 14. Gofen restock
-INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Import_Date, Product_ID, Purchase_ID) 
-VALUES ('BCH0000000014', TO_DATE('20/02/2025', 'DD/MM/YYYY'), TO_DATE('20/02/2027', 'DD/MM/YYYY'), 100, 'L_GOF_0002', 40, 40, TO_DATE('03/04/2025', 'DD/MM/YYYY'), 'PRD0000000002', 'PUR0000000004');
 
--- 15. Zyrtec restock
 INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Import_Date, Product_ID, Purchase_ID) 
-VALUES ('BCH0000000015', TO_DATE('01/03/2025', 'DD/MM/YYYY'), TO_DATE('01/03/2029', 'DD/MM/YYYY'), 150, 'L_ZYR_0002', 30, 30, TO_DATE('03/04/2025', 'DD/MM/YYYY'), 'PRD0000000005', 'PUR0000000004');
+VALUES ('BCH0000000032', TO_DATE('20/12/2025', 'DD/MM/YYYY'), TO_DATE('20/12/2029', 'DD/MM/YYYY'), 120, 'L_ZYR_0001', 80, 80, TO_DATE('20/01/2026', 'DD/MM/YYYY'), 'PRD0000000032', 'PUR0000000003');
 
--- ===== Batch ของ PUR0000000005 (18-05-2025) =====
--- 16. Miracid restock
 INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Import_Date, Product_ID, Purchase_ID) 
-VALUES ('BCH0000000016', TO_DATE('01/04/2025', 'DD/MM/YYYY'), TO_DATE('01/04/2028', 'DD/MM/YYYY'), 60, 'L_MIR_0002', 80, 80, TO_DATE('20/05/2025', 'DD/MM/YYYY'), 'PRD0000000008', 'PUR0000000005');
+VALUES ('BCH0000000033', TO_DATE('20/12/2025', 'DD/MM/YYYY'), TO_DATE('20/12/2029', 'DD/MM/YYYY'), 300, 'L_ZYR_0001', 20, 20, TO_DATE('20/01/2026', 'DD/MM/YYYY'), 'PRD0000000033', 'PUR0000000003');
 
--- 17. Lipitor restock
 INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Import_Date, Product_ID, Purchase_ID) 
-VALUES ('BCH0000000017', TO_DATE('15/03/2025', 'DD/MM/YYYY'), TO_DATE('15/03/2027', 'DD/MM/YYYY'), 1000, 'L_LIP_0002', 15, 15, TO_DATE('20/05/2025', 'DD/MM/YYYY'), 'PRD0000000009', 'PUR0000000005');
+VALUES ('BCH0000000034', TO_DATE('20/12/2025', 'DD/MM/YYYY'), TO_DATE('20/12/2029', 'DD/MM/YYYY'), 420, 'L_ZYR_0001', 20, 20, TO_DATE('20/01/2026', 'DD/MM/YYYY'), 'PRD0000000034', 'PUR0000000003');
 
--- 18. Concor restock
 INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Import_Date, Product_ID, Purchase_ID) 
-VALUES ('BCH0000000018', TO_DATE('01/04/2025', 'DD/MM/YYYY'), TO_DATE('01/04/2028', 'DD/MM/YYYY'), 250, 'L_CON_0002', 40, 40, TO_DATE('20/05/2025', 'DD/MM/YYYY'), 'PRD0000000010', 'PUR0000000005');
+VALUES ('BCH0000000035', TO_DATE('20/12/2025', 'DD/MM/YYYY'), TO_DATE('20/12/2029', 'DD/MM/YYYY'), 600, 'L_ZYR_0001', 15, 15, TO_DATE('20/01/2026', 'DD/MM/YYYY'), 'PRD0000000035', 'PUR0000000003');
 
--- ===== Batch ของ PUR0000000006 (01-06-2025) =====
--- 19. Aspirin 300mg
 INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Import_Date, Product_ID, Purchase_ID) 
-VALUES ('BCH0000000019', TO_DATE('01/03/2025', 'DD/MM/YYYY'), TO_DATE('01/03/2028', 'DD/MM/YYYY'), 18, 'L_ASP_0001', 80, 80, TO_DATE('03/06/2025', 'DD/MM/YYYY'), 'PRD0000000011', 'PUR0000000006');
+VALUES ('BCH0000000036', TO_DATE('10/11/2025', 'DD/MM/YYYY'), TO_DATE('10/11/2028', 'DD/MM/YYYY'), 140, 'L_ZYR_0002', 25, 25, TO_DATE('20/01/2026', 'DD/MM/YYYY'), 'PRD0000000036', 'PUR0000000003');
 
--- 20. Naproxen 250mg
 INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Import_Date, Product_ID, Purchase_ID) 
-VALUES ('BCH0000000020', TO_DATE('15/04/2025', 'DD/MM/YYYY'), TO_DATE('15/04/2027', 'DD/MM/YYYY'), 70, 'L_NAP_0001', 50, 50, TO_DATE('03/06/2025', 'DD/MM/YYYY'), 'PRD0000000012', 'PUR0000000006');
+VALUES ('BCH0000000037', TO_DATE('20/12/2025', 'DD/MM/YYYY'), TO_DATE('20/12/2029', 'DD/MM/YYYY'), 0, 'L_ZYR_PILL', 0, 0, TO_DATE('20/01/2026', 'DD/MM/YYYY'), 'PRD0000000037', 'PUR0000000003');
 
--- 21. Zithromax 250mg
 INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Import_Date, Product_ID, Purchase_ID) 
-VALUES ('BCH0000000021', TO_DATE('01/05/2025', 'DD/MM/YYYY'), TO_DATE('01/05/2027', 'DD/MM/YYYY'), 300, 'L_ZIT_0001', 30, 30, TO_DATE('03/06/2025', 'DD/MM/YYYY'), 'PRD0000000013', 'PUR0000000006');
+VALUES ('BCH0000000038', TO_DATE('01/02/2026', 'DD/MM/YYYY'), TO_DATE('01/02/2029', 'DD/MM/YYYY'), 55, 'L_MIR_0001', 60, 60, TO_DATE('25/02/2026', 'DD/MM/YYYY'), 'PRD0000000038', 'PUR0000000003');
 
--- 22. Keflex 500mg
 INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Import_Date, Product_ID, Purchase_ID) 
-VALUES ('BCH0000000022', TO_DATE('20/04/2025', 'DD/MM/YYYY'), TO_DATE('20/04/2027', 'DD/MM/YYYY'), 180, 'L_KEF_0001', 40, 40, TO_DATE('03/06/2025', 'DD/MM/YYYY'), 'PRD0000000014', 'PUR0000000006');
+VALUES ('BCH0000000039', TO_DATE('01/02/2026', 'DD/MM/YYYY'), TO_DATE('01/02/2029', 'DD/MM/YYYY'), 100, 'L_MIR_0001', 20, 20, TO_DATE('25/02/2026', 'DD/MM/YYYY'), 'PRD0000000039', 'PUR0000000003');
 
--- 23. Clarityne 10mg
 INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Import_Date, Product_ID, Purchase_ID) 
-VALUES ('BCH0000000023', TO_DATE('10/05/2025', 'DD/MM/YYYY'), TO_DATE('10/05/2029', 'DD/MM/YYYY'), 130, 'L_CLA_0001', 50, 50, TO_DATE('03/06/2025', 'DD/MM/YYYY'), 'PRD0000000015', 'PUR0000000006');
+VALUES ('BCH0000000040', TO_DATE('01/02/2026', 'DD/MM/YYYY'), TO_DATE('01/02/2029', 'DD/MM/YYYY'), 130, 'L_MIR_0001', 20, 20, TO_DATE('25/02/2026', 'DD/MM/YYYY'), 'PRD0000000040', 'PUR0000000003');
 
--- ===== Batch ของ PUR0000000007 (15-07-2025) =====
--- 24. Buscopan 10mg
 INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Import_Date, Product_ID, Purchase_ID) 
-VALUES ('BCH0000000024', TO_DATE('01/06/2025', 'DD/MM/YYYY'), TO_DATE('01/06/2028', 'DD/MM/YYYY'), 70, 'L_BUS_0001', 60, 60, TO_DATE('17/07/2025', 'DD/MM/YYYY'), 'PRD0000000016', 'PUR0000000007');
+VALUES ('BCH0000000041', TO_DATE('01/02/2026', 'DD/MM/YYYY'), TO_DATE('01/02/2029', 'DD/MM/YYYY'), 190, 'L_MIR_0001', 15, 15, TO_DATE('25/02/2026', 'DD/MM/YYYY'), 'PRD0000000041', 'PUR0000000003');
 
--- 25. Smecta 3g
 INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Import_Date, Product_ID, Purchase_ID) 
-VALUES ('BCH0000000025', TO_DATE('15/06/2025', 'DD/MM/YYYY'), TO_DATE('15/06/2028', 'DD/MM/YYYY'), 30, 'L_SME_0001', 80, 80, TO_DATE('17/07/2025', 'DD/MM/YYYY'), 'PRD0000000017', 'PUR0000000007');
+VALUES ('BCH0000000042', TO_DATE('01/02/2026', 'DD/MM/YYYY'), TO_DATE('01/02/2028', 'DD/MM/YYYY'), 85, 'L_MIR_0002', 30, 30, TO_DATE('25/02/2026', 'DD/MM/YYYY'), 'PRD0000000042', 'PUR0000000003');
 
--- 26. Norvasc 5mg
 INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Import_Date, Product_ID, Purchase_ID) 
-VALUES ('BCH0000000026', TO_DATE('01/06/2025', 'DD/MM/YYYY'), TO_DATE('01/06/2027', 'DD/MM/YYYY'), 350, 'L_NOR_0001', 20, 20, TO_DATE('17/07/2025', 'DD/MM/YYYY'), 'PRD0000000018', 'PUR0000000007');
+VALUES ('BCH0000000043', TO_DATE('01/02/2026', 'DD/MM/YYYY'), TO_DATE('01/02/2029', 'DD/MM/YYYY'), 0, 'L_MIR_PILL', 0, 0, TO_DATE('25/02/2026', 'DD/MM/YYYY'), 'PRD0000000043', 'PUR0000000003');
 
--- 27. Cozaar 50mg
+
 INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Import_Date, Product_ID, Purchase_ID) 
-VALUES ('BCH0000000027', TO_DATE('10/06/2025', 'DD/MM/YYYY'), TO_DATE('10/06/2028', 'DD/MM/YYYY'), 400, 'L_COZ_0001', 20, 20, TO_DATE('17/07/2025', 'DD/MM/YYYY'), 'PRD0000000019', 'PUR0000000007');
+VALUES ('BCH0000000044', TO_DATE('15/11/2025', 'DD/MM/YYYY'), TO_DATE('15/11/2028', 'DD/MM/YYYY'), 105, 'L_NOR_0001', 50, 50, TO_DATE('05/03/2026', 'DD/MM/YYYY'), 'PRD0000000044', 'PUR0000000003');
+
+INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Import_Date, Product_ID, Purchase_ID) 
+VALUES ('BCH0000000045', TO_DATE('15/11/2025', 'DD/MM/YYYY'), TO_DATE('15/11/2028', 'DD/MM/YYYY'), 290, 'L_NOR_0001', 20, 20, TO_DATE('05/03/2026', 'DD/MM/YYYY'), 'PRD0000000045', 'PUR0000000003');
+
+INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Import_Date, Product_ID, Purchase_ID) 
+VALUES ('BCH0000000046', TO_DATE('15/11/2025', 'DD/MM/YYYY'), TO_DATE('15/11/2028', 'DD/MM/YYYY'), 380, 'L_NOR_0001', 20, 20, TO_DATE('05/03/2026', 'DD/MM/YYYY'), 'PRD0000000046', 'PUR0000000003');
+
+INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Import_Date, Product_ID, Purchase_ID) 
+VALUES ('BCH0000000047', TO_DATE('15/11/2025', 'DD/MM/YYYY'), TO_DATE('15/11/2028', 'DD/MM/YYYY'), 560, 'L_NOR_0001', 15, 15, TO_DATE('05/03/2026', 'DD/MM/YYYY'), 'PRD0000000047', 'PUR0000000003');
+
+INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Import_Date, Product_ID, Purchase_ID) 
+VALUES ('BCH0000000048', TO_DATE('20/01/2026', 'DD/MM/YYYY'), TO_DATE('20/01/2028', 'DD/MM/YYYY'), 175, 'L_NOR_0002', 20, 20, TO_DATE('05/03/2026', 'DD/MM/YYYY'), 'PRD0000000048', 'PUR0000000003');
+
+INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Import_Date, Product_ID, Purchase_ID) 
+VALUES ('BCH0000000049', TO_DATE('15/11/2025', 'DD/MM/YYYY'), TO_DATE('15/11/2028', 'DD/MM/YYYY'), 0, 'L_NOR_PILL', 0, 0, TO_DATE('05/03/2026', 'DD/MM/YYYY'), 'PRD0000000049', 'PUR0000000003');
+
+
+INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Import_Date, Product_ID, Purchase_ID) 
+VALUES ('BCH0000000050', TO_DATE('01/12/2025', 'DD/MM/YYYY'), TO_DATE('01/12/2028', 'DD/MM/YYYY'), 70, 'L_TRA_0001', 30, 30, TO_DATE('15/01/2026', 'DD/MM/YYYY'), 'PRD0000000050', 'PUR0000000004');
+
+INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Import_Date, Product_ID, Purchase_ID) 
+VALUES ('BCH0000000051', TO_DATE('01/12/2025', 'DD/MM/YYYY'), TO_DATE('01/12/2028', 'DD/MM/YYYY'), 190, 'L_TRA_0001', 15, 15, TO_DATE('15/01/2026', 'DD/MM/YYYY'), 'PRD0000000051', 'PUR0000000004');
+
+INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Import_Date, Product_ID, Purchase_ID) 
+VALUES ('BCH0000000052', TO_DATE('01/12/2025', 'DD/MM/YYYY'), TO_DATE('01/12/2028', 'DD/MM/YYYY'), 240, 'L_TRA_0001', 15, 15, TO_DATE('15/01/2026', 'DD/MM/YYYY'), 'PRD0000000052', 'PUR0000000004');
+
+INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Import_Date, Product_ID, Purchase_ID) 
+VALUES ('BCH0000000053', TO_DATE('01/12/2025', 'DD/MM/YYYY'), TO_DATE('01/12/2028', 'DD/MM/YYYY'), 350, 'L_TRA_0001', 10, 10, TO_DATE('15/01/2026', 'DD/MM/YYYY'), 'PRD0000000053', 'PUR0000000004');
+
+INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Import_Date, Product_ID, Purchase_ID) 
+VALUES ('BCH0000000054', TO_DATE('01/12/2025', 'DD/MM/YYYY'), TO_DATE('01/12/2027', 'DD/MM/YYYY'), 140, 'L_TRA_0002', 20, 20, TO_DATE('15/01/2026', 'DD/MM/YYYY'), 'PRD0000000054', 'PUR0000000004');
+
+INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Import_Date, Product_ID, Purchase_ID) 
+VALUES ('BCH0000000055', TO_DATE('01/12/2025', 'DD/MM/YYYY'), TO_DATE('01/12/2028', 'DD/MM/YYYY'), 0, 'L_TRA_PILL', 0, 0, TO_DATE('15/01/2026', 'DD/MM/YYYY'), 'PRD0000000055', 'PUR0000000004');
+
+
+INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Import_Date, Product_ID, Purchase_ID) 
+VALUES ('BCH0000000056', TO_DATE('10/10/2025', 'DD/MM/YYYY'), TO_DATE('10/10/2027', 'DD/MM/YYYY'), 55, 'L_TUR_0001', 40, 40, TO_DATE('20/02/2026', 'DD/MM/YYYY'), 'PRD0000000056', 'PUR0000000004');
+
+INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Import_Date, Product_ID, Purchase_ID) 
+VALUES ('BCH0000000057', TO_DATE('10/10/2025', 'DD/MM/YYYY'), TO_DATE('10/10/2027', 'DD/MM/YYYY'), 150, 'L_TUR_0001', 20, 20, TO_DATE('20/02/2026', 'DD/MM/YYYY'), 'PRD0000000057', 'PUR0000000004');
+
+INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Import_Date, Product_ID, Purchase_ID) 
+VALUES ('BCH0000000058', TO_DATE('10/10/2025', 'DD/MM/YYYY'), TO_DATE('10/10/2027', 'DD/MM/YYYY'), 190, 'L_TUR_0001', 20, 20, TO_DATE('20/02/2026', 'DD/MM/YYYY'), 'PRD0000000058', 'PUR0000000004');
+
+INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Import_Date, Product_ID, Purchase_ID) 
+VALUES ('BCH0000000059', TO_DATE('10/10/2025', 'DD/MM/YYYY'), TO_DATE('10/10/2027', 'DD/MM/YYYY'), 280, 'L_TUR_0001', 15, 15, TO_DATE('20/02/2026', 'DD/MM/YYYY'), 'PRD0000000059', 'PUR0000000004');
+
+INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Import_Date, Product_ID, Purchase_ID) 
+VALUES ('BCH0000000060', TO_DATE('05/01/2026', 'DD/MM/YYYY'), TO_DATE('05/01/2028', 'DD/MM/YYYY'), 85, 'L_TUR_0002', 30, 30, TO_DATE('20/02/2026', 'DD/MM/YYYY'), 'PRD0000000060', 'PUR0000000004');
+
+INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Import_Date, Product_ID, Purchase_ID) 
+VALUES ('BCH0000000061', TO_DATE('10/10/2025', 'DD/MM/YYYY'), TO_DATE('10/10/2027', 'DD/MM/YYYY'), 0, 'L_TUR_PILL', 0, 0, TO_DATE('20/02/2026', 'DD/MM/YYYY'), 'PRD0000000061', 'PUR0000000004');
+
+
+INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Import_Date, Product_ID, Purchase_ID) 
+VALUES ('BCH0000000062', TO_DATE('15/09/2025', 'DD/MM/YYYY'), TO_DATE('15/09/2028', 'DD/MM/YYYY'), 105, 'L_FIS_0001', 40, 40, TO_DATE('10/02/2026', 'DD/MM/YYYY'), 'PRD0000000062', 'PUR0000000004');
+
+INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Import_Date, Product_ID, Purchase_ID) 
+VALUES ('BCH0000000063', TO_DATE('15/09/2025', 'DD/MM/YYYY'), TO_DATE('15/09/2028', 'DD/MM/YYYY'), 280, 'L_FIS_0001', 25, 25, TO_DATE('10/02/2026', 'DD/MM/YYYY'), 'PRD0000000063', 'PUR0000000004');
+
+INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Import_Date, Product_ID, Purchase_ID) 
+VALUES ('BCH0000000064', TO_DATE('15/09/2025', 'DD/MM/YYYY'), TO_DATE('15/09/2028', 'DD/MM/YYYY'), 360, 'L_FIS_0001', 25, 25, TO_DATE('10/02/2026', 'DD/MM/YYYY'), 'PRD0000000064', 'PUR0000000004');
+
+INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Import_Date, Product_ID, Purchase_ID) 
+VALUES ('BCH0000000065', TO_DATE('15/09/2025', 'DD/MM/YYYY'), TO_DATE('15/09/2028', 'DD/MM/YYYY'), 525, 'L_FIS_0001', 20, 20, TO_DATE('10/02/2026', 'DD/MM/YYYY'), 'PRD0000000065', 'PUR0000000004');
+
+INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Import_Date, Product_ID, Purchase_ID) 
+VALUES ('BCH0000000066', TO_DATE('20/12/2025', 'DD/MM/YYYY'), TO_DATE('20/12/2027', 'DD/MM/YYYY'), 175, 'L_FIS_0002', 30, 30, TO_DATE('10/02/2026', 'DD/MM/YYYY'), 'PRD0000000066', 'PUR0000000004');
+
+INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Import_Date, Product_ID, Purchase_ID) 
+VALUES ('BCH0000000067', TO_DATE('15/09/2025', 'DD/MM/YYYY'), TO_DATE('15/09/2028', 'DD/MM/YYYY'), 0, 'L_FIS_PILL', 0, 0, TO_DATE('10/02/2026', 'DD/MM/YYYY'), 'PRD0000000067', 'PUR0000000004');
 
 COMMIT;
+
+

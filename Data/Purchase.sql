@@ -20,6 +20,7 @@ VALUES ('PUR0000000006', 'Received', 'INV06', TO_DATE('01-06-2025', 'DD-MM-YYYY'
 INSERT INTO Purchase_Header (Purchase_ID, Status, Invoice_Number, Purchase_Date, Total_Cost, Supplier_ID, EMP_ID) 
 VALUES ('PUR0000000007', 'Received', 'INV07', TO_DATE('15-07-2025', 'DD-MM-YYYY'), 11900, 'S03', 'EMP00000-2');
 
+
 COMMIT;
 
 -- ===== Purchase_Detail =====
