@@ -15,3 +15,4 @@ CREATE TABLE Purchase_Header (
 	CONSTRAINT ordfk		FOREIGN KEY (Order_ID)
 		REFERENCES	Orders (Order_ID)
 );
+

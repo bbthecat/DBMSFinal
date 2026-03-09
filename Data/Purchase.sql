@@ -1,25 +1,6 @@
--- ===== Purchase_Header =====
-INSERT INTO Purchase_Header (Purchase_ID, Status, Invoice_Number, Purchase_Date, Total_Cost, Supplier_ID, EMP_ID) 
-VALUES ('PUR0000000001', 'Received', 'INV01', TO_DATE('10-01-2025', 'DD-MM-YYYY'), 5000, 'S01', 'EMP00000-1');
+INSERT INTO Purchase_Header VALUES ( 'PUR0000000001','Received', 'INV01', TO_DATE('10/01/2026', 'DD/MM/YYYY'),45500,'S01','EMP0000001','ORD0000001');
 
-INSERT INTO Purchase_Header (Purchase_ID, Status, Invoice_Number, Purchase_Date, Total_Cost, Supplier_ID, EMP_ID) 
-VALUES ('PUR0000000002', 'Received', 'INV02', TO_DATE('20-02-2025', 'DD-MM-YYYY'), 8500, 'S02', 'EMP00000-1');
-
-INSERT INTO Purchase_Header (Purchase_ID, Status, Invoice_Number, Purchase_Date, Total_Cost, Supplier_ID, EMP_ID) 
-VALUES ('PUR0000000003', 'Received', 'INV03', TO_DATE('15-03-2025', 'DD-MM-YYYY'), 6200, 'S03', 'EMP00000-1');
-
-INSERT INTO Purchase_Header (Purchase_ID, Status, Invoice_Number, Purchase_Date, Total_Cost, Supplier_ID, EMP_ID) 
-VALUES ('PUR0000000004', 'Received', 'INV04', TO_DATE('01-04-2025', 'DD-MM-YYYY'), 3500, 'S04', 'EMP00000-2');
-
-INSERT INTO Purchase_Header (Purchase_ID, Status, Invoice_Number, Purchase_Date, Total_Cost, Supplier_ID, EMP_ID) 
-VALUES ('PUR0000000005', 'Received', 'INV05', TO_DATE('18-05-2025', 'DD-MM-YYYY'), 9000, 'S05', 'EMP00000-2');
-
-INSERT INTO Purchase_Header (Purchase_ID, Status, Invoice_Number, Purchase_Date, Total_Cost, Supplier_ID, EMP_ID) 
-VALUES ('PUR0000000006', 'Received', 'INV06', TO_DATE('01-06-2025', 'DD-MM-YYYY'), 7350, 'S06', 'EMP00000-1');
-
-INSERT INTO Purchase_Header (Purchase_ID, Status, Invoice_Number, Purchase_Date, Total_Cost, Supplier_ID, EMP_ID) 
-VALUES ('PUR0000000007', 'Received', 'INV07', TO_DATE('15-07-2025', 'DD-MM-YYYY'), 11900, 'S03', 'EMP00000-2');
-
+DELETE FROM Purchase_Header;
 
 COMMIT;
 
