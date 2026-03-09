@@ -471,7 +471,14 @@ function renderCartItems() {
                     <span>${item.Quantity}</span>
                     <button onclick="changeQty(${i},1)">+</button>
                 </div>
-                <div class="cart-item-subtotal">${formatCurrency(item.Unit_Price * item.Quantity)}</div>
+                <div class="cart-item-discount" style="display:flex;align-items:center;gap:4px;margin:0 6px;">
+                    <span style="font-size:0.75rem;color:var(--text-secondary);">ลด</span>
+                    <input type="number" min="0" step="1" value="${item.Discount}"
+                        onchange="changeDiscount(${i}, this.value)"
+                        style="width:65px;padding:4px 6px;border:1px solid var(--border);border-radius:6px;text-align:right;font-size:0.85rem;">
+                    <span style="font-size:0.75rem;color:var(--text-secondary);">฿</span>
+                </div>
+                <div class="cart-item-subtotal">${formatCurrency(item.Unit_Price * item.Quantity - item.Discount)}</div>
                 <button class="cart-item-remove" onclick="removeFromCart(${i})">
                     <span class="material-symbols-rounded" style="font-size:18px">close</span>
                 </button>
@@ -498,6 +505,13 @@ function changeQty(index, delta) {
     renderCartItems();
 }
 function removeFromCart(index) { cart.splice(index, 1); renderCartItems(); }
+
+function changeDiscount(index, value) {
+    const disc = Math.max(0, Number(value) || 0);
+    const maxDisc = cart[index].Unit_Price * cart[index].Quantity;
+    cart[index].Discount = Math.min(disc, maxDisc);
+    renderCartItems();
+}
 
 function filterPOSProducts() {
     const searchEl = document.getElementById('pos-search');
