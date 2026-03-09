@@ -24,6 +24,8 @@ CREATE OR REPLACE PROCEDURE sp_receive_purchase(
     v_product_id    VARCHAR2(13);
     v_order_qty     NUMBER;
     v_cost_price    NUMBER;
+    v_unit_per_pack NUMBER;
+    v_total_qty     NUMBER;
 BEGIN
     -- ขั้นตอนที่ 1: ตรวจสอบสถานะบิล (ล็อกแถวป้องกัน race condition)
     SELECT Status INTO v_status
@@ -36,12 +38,16 @@ BEGIN
         RETURN;
     END IF;
 
-    -- ขั้นตอนที่ 2: ดึงข้อมูลยาใน Purchase_Detail ตาม Detail_ID
-    SELECT Product_ID, Order_Qty, Cost_Price
-    INTO v_product_id, v_order_qty, v_cost_price
-    FROM Purchase_Detail
-    WHERE TRIM(P_Detail_ID) = TRIM(p_detail_id)
-      AND TRIM(Purchase_ID)  = TRIM(p_purchase_id);
+    -- ขั้นตอนที่ 2: ดึงข้อมูลยาใน Purchase_Detail ตาม Detail_ID พร้อมเชื่อมกับ Product
+    SELECT pd.Product_ID, pd.Order_Qty, pd.Cost_Price, NVL(p.Unit_per_pack, 1)
+    INTO v_product_id, v_order_qty, v_cost_price, v_unit_per_pack
+    FROM Purchase_Detail pd
+    JOIN Product p ON TRIM(pd.Product_ID) = TRIM(p.Product_ID)
+    WHERE TRIM(pd.P_Detail_ID) = TRIM(p_detail_id)
+      AND TRIM(pd.Purchase_ID)  = TRIM(p_purchase_id);
+
+    -- คำนวณจำนวนชิ้นทั้งหมด = จำนวนแพ็ค * จำนวนชิ้นต่อแพ็ค
+    v_total_qty := v_order_qty * v_unit_per_pack;
 
     -- ขั้นตอนที่ 3: สร้างรหัส Batch_ID แบบ Unique
     -- รูปแบบ: B + YYMMDDHH24MI (10 chars) + 2 chars running = 13 chars
@@ -58,8 +64,8 @@ BEGIN
         p_exp_date,                             -- วันหมดอายุจากกล่องยาจริง
         v_cost_price,                           -- ต้นทุนจากใบสั่งซื้อ
         SUBSTR(p_lot_number, 1, 10),            -- เลข Lot จริง (จำกัด 10 chars)
-        v_order_qty,                            -- ยอดรับเข้า
-        v_order_qty,                            -- ยอดคงเหลือพร้อมขาย
+        v_total_qty,                            -- ยอดรับเข้า (จำนวนแพ็ค * ชิ้นต่อแพ็ค)
+        v_total_qty,                            -- ยอดคงเหลือพร้อมขาย
         CURRENT_TIMESTAMP,                       -- วันนำเข้าระบบ (เวลาไทย)
         v_product_id,
         TRIM(p_purchase_id)
