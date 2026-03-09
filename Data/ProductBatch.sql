@@ -1,159 +1,105 @@
--- 1. แบบแผง
-INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Import_Date, Product_ID, Purchase_ID) 
-VALUES ('BCH0000000020', TO_DATE('15/10/2025', 'DD/MM/YYYY'), TO_DATE('15/10/2028', 'DD/MM/YYYY'), 10, 'L_SAR_0001', 50, 50, TO_DATE('10/01/2026', 'DD/MM/YYYY'), 'PRD0000000020', 'PUR0000000003');
+INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Product_ID, Purchase_ID) 
+VALUES ('BCH0000000020', TO_DATE('15/10/2025', 'DD/MM/YYYY'), TO_DATE('15/10/2028', 'DD/MM/YYYY'), 10, 'L_SAR_0001', 50, 50, 'PRD0000000020', 'PUR0000000001');
+INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Product_ID, Purchase_ID) 
+VALUES ('BCH0000000021', TO_DATE('15/10/2025', 'DD/MM/YYYY'), TO_DATE('15/10/2028', 'DD/MM/YYYY'), 25, 'L_SAR_0001', 20, 20, 'PRD0000000021', 'PUR0000000001');
+INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Product_ID, Purchase_ID) 
+VALUES ('BCH0000000022', TO_DATE('15/10/2025', 'DD/MM/YYYY'), TO_DATE('15/10/2028', 'DD/MM/YYYY'), 35, 'L_SAR_0001', 20, 20, 'PRD0000000022', 'PUR0000000001');
+INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Product_ID, Purchase_ID) 
+VALUES ('BCH0000000023', TO_DATE('15/10/2025', 'DD/MM/YYYY'), TO_DATE('15/10/2028', 'DD/MM/YYYY'), 50, 'L_SAR_0001', 20, 20, 'PRD0000000023', 'PUR0000000001');
+INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Product_ID, Purchase_ID) 
+VALUES ('BCH0000000024', TO_DATE('20/11/2025', 'DD/MM/YYYY'), TO_DATE('20/11/2027', 'DD/MM/YYYY'), 20, 'L_SAR_0002', 30, 30, 'PRD0000000024', 'PUR0000000001');
+INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Product_ID, Purchase_ID) 
+VALUES ('BCH0000000025', TO_DATE('15/10/2025', 'DD/MM/YYYY'), TO_DATE('15/10/2028', 'DD/MM/YYYY'), 0, 'L_SAR_PILL', 0, 0, 'PRD0000000025', 'PUR0000000001');
 
--- 2. แบบกระปุก S
-INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Import_Date, Product_ID, Purchase_ID) 
-VALUES ('BCH0000000021', TO_DATE('15/10/2025', 'DD/MM/YYYY'), TO_DATE('15/10/2028', 'DD/MM/YYYY'), 25, 'L_SAR_0001', 20, 20, TO_DATE('10/01/2026', 'DD/MM/YYYY'), 'PRD0000000021', 'PUR0000000003');
+INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Product_ID, Purchase_ID) 
+VALUES ('BCH0000000026', TO_DATE('05/01/2026', 'DD/MM/YYYY'), TO_DATE('05/01/2029', 'DD/MM/YYYY'), 40, 'L_AMX_0001', 100, 100, 'PRD0000000026', 'PUR0000000001');
+INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Product_ID, Purchase_ID) 
+VALUES ('BCH0000000027', TO_DATE('05/01/2026', 'DD/MM/YYYY'), TO_DATE('05/01/2029', 'DD/MM/YYYY'), 100, 'L_AMX_0001', 30, 30, 'PRD0000000027', 'PUR0000000001');
+INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Product_ID, Purchase_ID) 
+VALUES ('BCH0000000028', TO_DATE('05/01/2026', 'DD/MM/YYYY'), TO_DATE('05/01/2029', 'DD/MM/YYYY'), 140, 'L_AMX_0001', 30, 30, 'PRD0000000028', 'PUR0000000001');
+INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Product_ID, Purchase_ID) 
+VALUES ('BCH0000000029', TO_DATE('05/01/2026', 'DD/MM/YYYY'), TO_DATE('05/01/2029', 'DD/MM/YYYY'), 200, 'L_AMX_0001', 20, 20, 'PRD0000000029', 'PUR0000000001');
+INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Product_ID, Purchase_ID) 
+VALUES ('BCH0000000030', TO_DATE('05/01/2026', 'DD/MM/YYYY'), TO_DATE('05/01/2028', 'DD/MM/YYYY'), 45, 'L_AMX_0002', 40, 40, 'PRD0000000030', 'PUR0000000001');
+INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Product_ID, Purchase_ID) 
+VALUES ('BCH0000000031', TO_DATE('05/01/2026', 'DD/MM/YYYY'), TO_DATE('05/01/2029', 'DD/MM/YYYY'), 0, 'L_AMX_PILL', 0, 0, 'PRD0000000031', 'PUR0000000001');
 
--- 3. แบบกระปุก M
-INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Import_Date, Product_ID, Purchase_ID) 
-VALUES ('BCH0000000022', TO_DATE('15/10/2025', 'DD/MM/YYYY'), TO_DATE('15/10/2028', 'DD/MM/YYYY'), 35, 'L_SAR_0001', 20, 20, TO_DATE('10/01/2026', 'DD/MM/YYYY'), 'PRD0000000022', 'PUR0000000003');
+INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Product_ID, Purchase_ID) 
+VALUES ('BCH0000000032', TO_DATE('20/12/2025', 'DD/MM/YYYY'), TO_DATE('20/12/2029', 'DD/MM/YYYY'), 120, 'L_ZYR_0001', 80, 80, 'PRD0000000032', 'PUR0000000001');
+INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Product_ID, Purchase_ID) 
+VALUES ('BCH0000000033', TO_DATE('20/12/2025', 'DD/MM/YYYY'), TO_DATE('20/12/2029', 'DD/MM/YYYY'), 300, 'L_ZYR_0001', 20, 20, 'PRD0000000033', 'PUR0000000001');
+INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Product_ID, Purchase_ID) 
+VALUES ('BCH0000000034', TO_DATE('20/12/2025', 'DD/MM/YYYY'), TO_DATE('20/12/2029', 'DD/MM/YYYY'), 420, 'L_ZYR_0001', 20, 20, 'PRD0000000034', 'PUR0000000001');
+INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Product_ID, Purchase_ID) 
+VALUES ('BCH0000000035', TO_DATE('20/12/2025', 'DD/MM/YYYY'), TO_DATE('20/12/2029', 'DD/MM/YYYY'), 600, 'L_ZYR_0001', 15, 15, 'PRD0000000035', 'PUR0000000001');
+INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Product_ID, Purchase_ID) 
+VALUES ('BCH0000000036', TO_DATE('10/11/2025', 'DD/MM/YYYY'), TO_DATE('10/11/2028', 'DD/MM/YYYY'), 140, 'L_ZYR_0002', 25, 25, 'PRD0000000036', 'PUR0000000001');
+INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Product_ID, Purchase_ID) 
+VALUES ('BCH0000000037', TO_DATE('20/12/2025', 'DD/MM/YYYY'), TO_DATE('20/12/2029', 'DD/MM/YYYY'), 0, 'L_ZYR_PILL', 0, 0, 'PRD0000000037', 'PUR0000000001');
 
--- 4. แบบกระปุก L
-INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Import_Date, Product_ID, Purchase_ID) 
-VALUES ('BCH0000000023', TO_DATE('15/10/2025', 'DD/MM/YYYY'), TO_DATE('15/10/2028', 'DD/MM/YYYY'), 50, 'L_SAR_0001', 20, 20, TO_DATE('10/01/2026', 'DD/MM/YYYY'), 'PRD0000000023', 'PUR0000000003');
+INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Product_ID, Purchase_ID) 
+VALUES ('BCH0000000038', TO_DATE('01/02/2026', 'DD/MM/YYYY'), TO_DATE('01/02/2029', 'DD/MM/YYYY'), 55, 'L_MIR_0001', 60, 60, 'PRD0000000038', 'PUR0000000001');
+INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Product_ID, Purchase_ID) 
+VALUES ('BCH0000000039', TO_DATE('01/02/2026', 'DD/MM/YYYY'), TO_DATE('01/02/2029', 'DD/MM/YYYY'), 100, 'L_MIR_0001', 20, 20, 'PRD0000000039', 'PUR0000000001');
+INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Product_ID, Purchase_ID) 
+VALUES ('BCH0000000040', TO_DATE('01/02/2026', 'DD/MM/YYYY'), TO_DATE('01/02/2029', 'DD/MM/YYYY'), 130, 'L_MIR_0001', 20, 20, 'PRD0000000040', 'PUR0000000001');
+INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Product_ID, Purchase_ID) 
+VALUES ('BCH0000000041', TO_DATE('01/02/2026', 'DD/MM/YYYY'), TO_DATE('01/02/2029', 'DD/MM/YYYY'), 190, 'L_MIR_0001', 15, 15, 'PRD0000000041', 'PUR0000000001');
+INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Product_ID, Purchase_ID) 
+VALUES ('BCH0000000042', TO_DATE('01/02/2026', 'DD/MM/YYYY'), TO_DATE('01/02/2028', 'DD/MM/YYYY'), 85, 'L_MIR_0002', 30, 30, 'PRD0000000042', 'PUR0000000001');
+INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Product_ID, Purchase_ID) 
+VALUES ('BCH0000000043', TO_DATE('01/02/2026', 'DD/MM/YYYY'), TO_DATE('01/02/2029', 'DD/MM/YYYY'), 0, 'L_MIR_PILL', 0, 0, 'PRD0000000043', 'PUR0000000001');
 
--- 5. แบบน้ำ
-INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Import_Date, Product_ID, Purchase_ID) 
-VALUES ('BCH0000000024', TO_DATE('20/11/2025', 'DD/MM/YYYY'), TO_DATE('20/11/2027', 'DD/MM/YYYY'), 20, 'L_SAR_0002', 30, 30, TO_DATE('10/01/2026', 'DD/MM/YYYY'), 'PRD0000000024', 'PUR0000000003');
+INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Product_ID, Purchase_ID) 
+VALUES ('BCH0000000044', TO_DATE('15/11/2025', 'DD/MM/YYYY'), TO_DATE('15/11/2028', 'DD/MM/YYYY'), 105, 'L_NOR_0001', 50, 50, 'PRD0000000044', 'PUR0000000001');
+INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Product_ID, Purchase_ID) 
+VALUES ('BCH0000000045', TO_DATE('15/11/2025', 'DD/MM/YYYY'), TO_DATE('15/11/2028', 'DD/MM/YYYY'), 290, 'L_NOR_0001', 20, 20, 'PRD0000000045', 'PUR0000000001');
+INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Product_ID, Purchase_ID) 
+VALUES ('BCH0000000046', TO_DATE('15/11/2025', 'DD/MM/YYYY'), TO_DATE('15/11/2028', 'DD/MM/YYYY'), 380, 'L_NOR_0001', 20, 20, 'PRD0000000046', 'PUR0000000001');
+INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Product_ID, Purchase_ID) 
+VALUES ('BCH0000000047', TO_DATE('15/11/2025', 'DD/MM/YYYY'), TO_DATE('15/11/2028', 'DD/MM/YYYY'), 560, 'L_NOR_0001', 15, 15, 'PRD0000000047', 'PUR0000000001');
+INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Product_ID, Purchase_ID) 
+VALUES ('BCH0000000048', TO_DATE('20/01/2026', 'DD/MM/YYYY'), TO_DATE('20/01/2028', 'DD/MM/YYYY'), 175, 'L_NOR_0002', 20, 20, 'PRD0000000048', 'PUR0000000001');
+INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Product_ID, Purchase_ID) 
+VALUES ('BCH0000000049', TO_DATE('15/11/2025', 'DD/MM/YYYY'), TO_DATE('15/11/2028', 'DD/MM/YYYY'), 0, 'L_NOR_PILL', 0, 0, 'PRD0000000049', 'PUR0000000001');
 
--- 6. แบบเม็ด (Pill) -> สต็อกเริ่มต้น = 0
-INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Import_Date, Product_ID, Purchase_ID) 
-VALUES ('BCH0000000025', TO_DATE('15/10/2025', 'DD/MM/YYYY'), TO_DATE('15/10/2028', 'DD/MM/YYYY'), 0, 'L_SAR_PILL', 0, 0, TO_DATE('10/01/2026', 'DD/MM/YYYY'), 'PRD0000000025', 'PUR0000000003');
+INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Product_ID, Purchase_ID) 
+VALUES ('BCH0000000050', TO_DATE('01/12/2025', 'DD/MM/YYYY'), TO_DATE('01/12/2028', 'DD/MM/YYYY'), 70, 'L_TRA_0001', 30, 30, 'PRD0000000050', 'PUR0000000001');
+INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Product_ID, Purchase_ID) 
+VALUES ('BCH0000000051', TO_DATE('01/12/2025', 'DD/MM/YYYY'), TO_DATE('01/12/2028', 'DD/MM/YYYY'), 190, 'L_TRA_0001', 15, 15, 'PRD0000000051', 'PUR0000000001');
+INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Product_ID, Purchase_ID) 
+VALUES ('BCH0000000052', TO_DATE('01/12/2025', 'DD/MM/YYYY'), TO_DATE('01/12/2028', 'DD/MM/YYYY'), 240, 'L_TRA_0001', 15, 15, 'PRD0000000052', 'PUR0000000001');
+INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Product_ID, Purchase_ID) 
+VALUES ('BCH0000000053', TO_DATE('01/12/2025', 'DD/MM/YYYY'), TO_DATE('01/12/2028', 'DD/MM/YYYY'), 350, 'L_TRA_0001', 10, 10, 'PRD0000000053', 'PUR0000000001');
+INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Product_ID, Purchase_ID) 
+VALUES ('BCH0000000054', TO_DATE('01/12/2025', 'DD/MM/YYYY'), TO_DATE('01/12/2027', 'DD/MM/YYYY'), 140, 'L_TRA_0002', 20, 20, 'PRD0000000054', 'PUR0000000001');
+INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Product_ID, Purchase_ID) 
+VALUES ('BCH0000000055', TO_DATE('01/12/2025', 'DD/MM/YYYY'), TO_DATE('01/12/2028', 'DD/MM/YYYY'), 0, 'L_TRA_PILL', 0, 0, 'PRD0000000055', 'PUR0000000001');
 
+INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Product_ID, Purchase_ID) 
+VALUES ('BCH0000000056', TO_DATE('10/10/2025', 'DD/MM/YYYY'), TO_DATE('10/10/2027', 'DD/MM/YYYY'), 55, 'L_TUR_0001', 40, 40, 'PRD0000000056', 'PUR0000000001');
+INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Product_ID, Purchase_ID) 
+VALUES ('BCH0000000057', TO_DATE('10/10/2025', 'DD/MM/YYYY'), TO_DATE('10/10/2027', 'DD/MM/YYYY'), 150, 'L_TUR_0001', 20, 20, 'PRD0000000057', 'PUR0000000001');
+INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Product_ID, Purchase_ID) 
+VALUES ('BCH0000000058', TO_DATE('10/10/2025', 'DD/MM/YYYY'), TO_DATE('10/10/2027', 'DD/MM/YYYY'), 190, 'L_TUR_0001', 20, 20, 'PRD0000000058', 'PUR0000000001');
+INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Product_ID, Purchase_ID) 
+VALUES ('BCH0000000059', TO_DATE('10/10/2025', 'DD/MM/YYYY'), TO_DATE('10/10/2027', 'DD/MM/YYYY'), 280, 'L_TUR_0001', 15, 15, 'PRD0000000059', 'PUR0000000001');
+INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Product_ID, Purchase_ID) 
+VALUES ('BCH0000000060', TO_DATE('05/01/2026', 'DD/MM/YYYY'), TO_DATE('05/01/2028', 'DD/MM/YYYY'), 85, 'L_TUR_0002', 30, 30, 'PRD0000000060', 'PUR0000000001');
+INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Product_ID, Purchase_ID) 
+VALUES ('BCH0000000061', TO_DATE('10/10/2025', 'DD/MM/YYYY'), TO_DATE('10/10/2027', 'DD/MM/YYYY'), 0, 'L_TUR_PILL', 0, 0, 'PRD0000000061', 'PUR0000000001');
 
-INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Import_Date, Product_ID, Purchase_ID) 
-VALUES ('BCH0000000026', TO_DATE('05/01/2026', 'DD/MM/YYYY'), TO_DATE('05/01/2029', 'DD/MM/YYYY'), 40, 'L_AMX_0001', 100, 100, TO_DATE('15/02/2026', 'DD/MM/YYYY'), 'PRD0000000026', 'PUR0000000003');
-
-INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Import_Date, Product_ID, Purchase_ID) 
-VALUES ('BCH0000000027', TO_DATE('05/01/2026', 'DD/MM/YYYY'), TO_DATE('05/01/2029', 'DD/MM/YYYY'), 100, 'L_AMX_0001', 30, 30, TO_DATE('15/02/2026', 'DD/MM/YYYY'), 'PRD0000000027', 'PUR0000000003');
-
-INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Import_Date, Product_ID, Purchase_ID) 
-VALUES ('BCH0000000028', TO_DATE('05/01/2026', 'DD/MM/YYYY'), TO_DATE('05/01/2029', 'DD/MM/YYYY'), 140, 'L_AMX_0001', 30, 30, TO_DATE('15/02/2026', 'DD/MM/YYYY'), 'PRD0000000028', 'PUR0000000003');
-
-INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Import_Date, Product_ID, Purchase_ID) 
-VALUES ('BCH0000000029', TO_DATE('05/01/2026', 'DD/MM/YYYY'), TO_DATE('05/01/2029', 'DD/MM/YYYY'), 200, 'L_AMX_0001', 20, 20, TO_DATE('15/02/2026', 'DD/MM/YYYY'), 'PRD0000000029', 'PUR0000000003');
-
-INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Import_Date, Product_ID, Purchase_ID) 
-VALUES ('BCH0000000030', TO_DATE('05/01/2026', 'DD/MM/YYYY'), TO_DATE('05/01/2028', 'DD/MM/YYYY'), 45, 'L_AMX_0002', 40, 40, TO_DATE('15/02/2026', 'DD/MM/YYYY'), 'PRD0000000030', 'PUR0000000003');
-
-INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Import_Date, Product_ID, Purchase_ID) 
-VALUES ('BCH0000000031', TO_DATE('05/01/2026', 'DD/MM/YYYY'), TO_DATE('05/01/2029', 'DD/MM/YYYY'), 0, 'L_AMX_PILL', 0, 0, TO_DATE('15/02/2026', 'DD/MM/YYYY'), 'PRD0000000031', 'PUR0000000003');
-
-
-INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Import_Date, Product_ID, Purchase_ID) 
-VALUES ('BCH0000000032', TO_DATE('20/12/2025', 'DD/MM/YYYY'), TO_DATE('20/12/2029', 'DD/MM/YYYY'), 120, 'L_ZYR_0001', 80, 80, TO_DATE('20/01/2026', 'DD/MM/YYYY'), 'PRD0000000032', 'PUR0000000003');
-
-INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Import_Date, Product_ID, Purchase_ID) 
-VALUES ('BCH0000000033', TO_DATE('20/12/2025', 'DD/MM/YYYY'), TO_DATE('20/12/2029', 'DD/MM/YYYY'), 300, 'L_ZYR_0001', 20, 20, TO_DATE('20/01/2026', 'DD/MM/YYYY'), 'PRD0000000033', 'PUR0000000003');
-
-INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Import_Date, Product_ID, Purchase_ID) 
-VALUES ('BCH0000000034', TO_DATE('20/12/2025', 'DD/MM/YYYY'), TO_DATE('20/12/2029', 'DD/MM/YYYY'), 420, 'L_ZYR_0001', 20, 20, TO_DATE('20/01/2026', 'DD/MM/YYYY'), 'PRD0000000034', 'PUR0000000003');
-
-INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Import_Date, Product_ID, Purchase_ID) 
-VALUES ('BCH0000000035', TO_DATE('20/12/2025', 'DD/MM/YYYY'), TO_DATE('20/12/2029', 'DD/MM/YYYY'), 600, 'L_ZYR_0001', 15, 15, TO_DATE('20/01/2026', 'DD/MM/YYYY'), 'PRD0000000035', 'PUR0000000003');
-
-INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Import_Date, Product_ID, Purchase_ID) 
-VALUES ('BCH0000000036', TO_DATE('10/11/2025', 'DD/MM/YYYY'), TO_DATE('10/11/2028', 'DD/MM/YYYY'), 140, 'L_ZYR_0002', 25, 25, TO_DATE('20/01/2026', 'DD/MM/YYYY'), 'PRD0000000036', 'PUR0000000003');
-
-INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Import_Date, Product_ID, Purchase_ID) 
-VALUES ('BCH0000000037', TO_DATE('20/12/2025', 'DD/MM/YYYY'), TO_DATE('20/12/2029', 'DD/MM/YYYY'), 0, 'L_ZYR_PILL', 0, 0, TO_DATE('20/01/2026', 'DD/MM/YYYY'), 'PRD0000000037', 'PUR0000000003');
-
-INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Import_Date, Product_ID, Purchase_ID) 
-VALUES ('BCH0000000038', TO_DATE('01/02/2026', 'DD/MM/YYYY'), TO_DATE('01/02/2029', 'DD/MM/YYYY'), 55, 'L_MIR_0001', 60, 60, TO_DATE('25/02/2026', 'DD/MM/YYYY'), 'PRD0000000038', 'PUR0000000003');
-
-INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Import_Date, Product_ID, Purchase_ID) 
-VALUES ('BCH0000000039', TO_DATE('01/02/2026', 'DD/MM/YYYY'), TO_DATE('01/02/2029', 'DD/MM/YYYY'), 100, 'L_MIR_0001', 20, 20, TO_DATE('25/02/2026', 'DD/MM/YYYY'), 'PRD0000000039', 'PUR0000000003');
-
-INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Import_Date, Product_ID, Purchase_ID) 
-VALUES ('BCH0000000040', TO_DATE('01/02/2026', 'DD/MM/YYYY'), TO_DATE('01/02/2029', 'DD/MM/YYYY'), 130, 'L_MIR_0001', 20, 20, TO_DATE('25/02/2026', 'DD/MM/YYYY'), 'PRD0000000040', 'PUR0000000003');
-
-INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Import_Date, Product_ID, Purchase_ID) 
-VALUES ('BCH0000000041', TO_DATE('01/02/2026', 'DD/MM/YYYY'), TO_DATE('01/02/2029', 'DD/MM/YYYY'), 190, 'L_MIR_0001', 15, 15, TO_DATE('25/02/2026', 'DD/MM/YYYY'), 'PRD0000000041', 'PUR0000000003');
-
-INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Import_Date, Product_ID, Purchase_ID) 
-VALUES ('BCH0000000042', TO_DATE('01/02/2026', 'DD/MM/YYYY'), TO_DATE('01/02/2028', 'DD/MM/YYYY'), 85, 'L_MIR_0002', 30, 30, TO_DATE('25/02/2026', 'DD/MM/YYYY'), 'PRD0000000042', 'PUR0000000003');
-
-INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Import_Date, Product_ID, Purchase_ID) 
-VALUES ('BCH0000000043', TO_DATE('01/02/2026', 'DD/MM/YYYY'), TO_DATE('01/02/2029', 'DD/MM/YYYY'), 0, 'L_MIR_PILL', 0, 0, TO_DATE('25/02/2026', 'DD/MM/YYYY'), 'PRD0000000043', 'PUR0000000003');
-
-
-INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Import_Date, Product_ID, Purchase_ID) 
-VALUES ('BCH0000000044', TO_DATE('15/11/2025', 'DD/MM/YYYY'), TO_DATE('15/11/2028', 'DD/MM/YYYY'), 105, 'L_NOR_0001', 50, 50, TO_DATE('05/03/2026', 'DD/MM/YYYY'), 'PRD0000000044', 'PUR0000000003');
-
-INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Import_Date, Product_ID, Purchase_ID) 
-VALUES ('BCH0000000045', TO_DATE('15/11/2025', 'DD/MM/YYYY'), TO_DATE('15/11/2028', 'DD/MM/YYYY'), 290, 'L_NOR_0001', 20, 20, TO_DATE('05/03/2026', 'DD/MM/YYYY'), 'PRD0000000045', 'PUR0000000003');
-
-INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Import_Date, Product_ID, Purchase_ID) 
-VALUES ('BCH0000000046', TO_DATE('15/11/2025', 'DD/MM/YYYY'), TO_DATE('15/11/2028', 'DD/MM/YYYY'), 380, 'L_NOR_0001', 20, 20, TO_DATE('05/03/2026', 'DD/MM/YYYY'), 'PRD0000000046', 'PUR0000000003');
-
-INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Import_Date, Product_ID, Purchase_ID) 
-VALUES ('BCH0000000047', TO_DATE('15/11/2025', 'DD/MM/YYYY'), TO_DATE('15/11/2028', 'DD/MM/YYYY'), 560, 'L_NOR_0001', 15, 15, TO_DATE('05/03/2026', 'DD/MM/YYYY'), 'PRD0000000047', 'PUR0000000003');
-
-INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Import_Date, Product_ID, Purchase_ID) 
-VALUES ('BCH0000000048', TO_DATE('20/01/2026', 'DD/MM/YYYY'), TO_DATE('20/01/2028', 'DD/MM/YYYY'), 175, 'L_NOR_0002', 20, 20, TO_DATE('05/03/2026', 'DD/MM/YYYY'), 'PRD0000000048', 'PUR0000000003');
-
-INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Import_Date, Product_ID, Purchase_ID) 
-VALUES ('BCH0000000049', TO_DATE('15/11/2025', 'DD/MM/YYYY'), TO_DATE('15/11/2028', 'DD/MM/YYYY'), 0, 'L_NOR_PILL', 0, 0, TO_DATE('05/03/2026', 'DD/MM/YYYY'), 'PRD0000000049', 'PUR0000000003');
-
-
-INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Import_Date, Product_ID, Purchase_ID) 
-VALUES ('BCH0000000050', TO_DATE('01/12/2025', 'DD/MM/YYYY'), TO_DATE('01/12/2028', 'DD/MM/YYYY'), 70, 'L_TRA_0001', 30, 30, TO_DATE('15/01/2026', 'DD/MM/YYYY'), 'PRD0000000050', 'PUR0000000004');
-
-INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Import_Date, Product_ID, Purchase_ID) 
-VALUES ('BCH0000000051', TO_DATE('01/12/2025', 'DD/MM/YYYY'), TO_DATE('01/12/2028', 'DD/MM/YYYY'), 190, 'L_TRA_0001', 15, 15, TO_DATE('15/01/2026', 'DD/MM/YYYY'), 'PRD0000000051', 'PUR0000000004');
-
-INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Import_Date, Product_ID, Purchase_ID) 
-VALUES ('BCH0000000052', TO_DATE('01/12/2025', 'DD/MM/YYYY'), TO_DATE('01/12/2028', 'DD/MM/YYYY'), 240, 'L_TRA_0001', 15, 15, TO_DATE('15/01/2026', 'DD/MM/YYYY'), 'PRD0000000052', 'PUR0000000004');
-
-INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Import_Date, Product_ID, Purchase_ID) 
-VALUES ('BCH0000000053', TO_DATE('01/12/2025', 'DD/MM/YYYY'), TO_DATE('01/12/2028', 'DD/MM/YYYY'), 350, 'L_TRA_0001', 10, 10, TO_DATE('15/01/2026', 'DD/MM/YYYY'), 'PRD0000000053', 'PUR0000000004');
-
-INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Import_Date, Product_ID, Purchase_ID) 
-VALUES ('BCH0000000054', TO_DATE('01/12/2025', 'DD/MM/YYYY'), TO_DATE('01/12/2027', 'DD/MM/YYYY'), 140, 'L_TRA_0002', 20, 20, TO_DATE('15/01/2026', 'DD/MM/YYYY'), 'PRD0000000054', 'PUR0000000004');
-
-INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Import_Date, Product_ID, Purchase_ID) 
-VALUES ('BCH0000000055', TO_DATE('01/12/2025', 'DD/MM/YYYY'), TO_DATE('01/12/2028', 'DD/MM/YYYY'), 0, 'L_TRA_PILL', 0, 0, TO_DATE('15/01/2026', 'DD/MM/YYYY'), 'PRD0000000055', 'PUR0000000004');
-
-
-INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Import_Date, Product_ID, Purchase_ID) 
-VALUES ('BCH0000000056', TO_DATE('10/10/2025', 'DD/MM/YYYY'), TO_DATE('10/10/2027', 'DD/MM/YYYY'), 55, 'L_TUR_0001', 40, 40, TO_DATE('20/02/2026', 'DD/MM/YYYY'), 'PRD0000000056', 'PUR0000000004');
-
-INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Import_Date, Product_ID, Purchase_ID) 
-VALUES ('BCH0000000057', TO_DATE('10/10/2025', 'DD/MM/YYYY'), TO_DATE('10/10/2027', 'DD/MM/YYYY'), 150, 'L_TUR_0001', 20, 20, TO_DATE('20/02/2026', 'DD/MM/YYYY'), 'PRD0000000057', 'PUR0000000004');
-
-INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Import_Date, Product_ID, Purchase_ID) 
-VALUES ('BCH0000000058', TO_DATE('10/10/2025', 'DD/MM/YYYY'), TO_DATE('10/10/2027', 'DD/MM/YYYY'), 190, 'L_TUR_0001', 20, 20, TO_DATE('20/02/2026', 'DD/MM/YYYY'), 'PRD0000000058', 'PUR0000000004');
-
-INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Import_Date, Product_ID, Purchase_ID) 
-VALUES ('BCH0000000059', TO_DATE('10/10/2025', 'DD/MM/YYYY'), TO_DATE('10/10/2027', 'DD/MM/YYYY'), 280, 'L_TUR_0001', 15, 15, TO_DATE('20/02/2026', 'DD/MM/YYYY'), 'PRD0000000059', 'PUR0000000004');
-
-INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Import_Date, Product_ID, Purchase_ID) 
-VALUES ('BCH0000000060', TO_DATE('05/01/2026', 'DD/MM/YYYY'), TO_DATE('05/01/2028', 'DD/MM/YYYY'), 85, 'L_TUR_0002', 30, 30, TO_DATE('20/02/2026', 'DD/MM/YYYY'), 'PRD0000000060', 'PUR0000000004');
-
-INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Import_Date, Product_ID, Purchase_ID) 
-VALUES ('BCH0000000061', TO_DATE('10/10/2025', 'DD/MM/YYYY'), TO_DATE('10/10/2027', 'DD/MM/YYYY'), 0, 'L_TUR_PILL', 0, 0, TO_DATE('20/02/2026', 'DD/MM/YYYY'), 'PRD0000000061', 'PUR0000000004');
-
-
-INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Import_Date, Product_ID, Purchase_ID) 
-VALUES ('BCH0000000062', TO_DATE('15/09/2025', 'DD/MM/YYYY'), TO_DATE('15/09/2028', 'DD/MM/YYYY'), 105, 'L_FIS_0001', 40, 40, TO_DATE('10/02/2026', 'DD/MM/YYYY'), 'PRD0000000062', 'PUR0000000004');
-
-INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Import_Date, Product_ID, Purchase_ID) 
-VALUES ('BCH0000000063', TO_DATE('15/09/2025', 'DD/MM/YYYY'), TO_DATE('15/09/2028', 'DD/MM/YYYY'), 280, 'L_FIS_0001', 25, 25, TO_DATE('10/02/2026', 'DD/MM/YYYY'), 'PRD0000000063', 'PUR0000000004');
-
-INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Import_Date, Product_ID, Purchase_ID) 
-VALUES ('BCH0000000064', TO_DATE('15/09/2025', 'DD/MM/YYYY'), TO_DATE('15/09/2028', 'DD/MM/YYYY'), 360, 'L_FIS_0001', 25, 25, TO_DATE('10/02/2026', 'DD/MM/YYYY'), 'PRD0000000064', 'PUR0000000004');
-
-INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Import_Date, Product_ID, Purchase_ID) 
-VALUES ('BCH0000000065', TO_DATE('15/09/2025', 'DD/MM/YYYY'), TO_DATE('15/09/2028', 'DD/MM/YYYY'), 525, 'L_FIS_0001', 20, 20, TO_DATE('10/02/2026', 'DD/MM/YYYY'), 'PRD0000000065', 'PUR0000000004');
-
-INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Import_Date, Product_ID, Purchase_ID) 
-VALUES ('BCH0000000066', TO_DATE('20/12/2025', 'DD/MM/YYYY'), TO_DATE('20/12/2027', 'DD/MM/YYYY'), 175, 'L_FIS_0002', 30, 30, TO_DATE('10/02/2026', 'DD/MM/YYYY'), 'PRD0000000066', 'PUR0000000004');
-
-INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Import_Date, Product_ID, Purchase_ID) 
-VALUES ('BCH0000000067', TO_DATE('15/09/2025', 'DD/MM/YYYY'), TO_DATE('15/09/2028', 'DD/MM/YYYY'), 0, 'L_FIS_PILL', 0, 0, TO_DATE('10/02/2026', 'DD/MM/YYYY'), 'PRD0000000067', 'PUR0000000004');
+INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Product_ID, Purchase_ID) 
+VALUES ('BCH0000000062', TO_DATE('15/09/2025', 'DD/MM/YYYY'), TO_DATE('15/09/2028', 'DD/MM/YYYY'), 105, 'L_FIS_0001', 40, 40, 'PRD0000000062', 'PUR0000000001');
+INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Product_ID, Purchase_ID) 
+VALUES ('BCH0000000063', TO_DATE('15/09/2025', 'DD/MM/YYYY'), TO_DATE('15/09/2028', 'DD/MM/YYYY'), 280, 'L_FIS_0001', 25, 25, 'PRD0000000063', 'PUR0000000001');
+INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Product_ID, Purchase_ID) 
+VALUES ('BCH0000000064', TO_DATE('15/09/2025', 'DD/MM/YYYY'), TO_DATE('15/09/2028', 'DD/MM/YYYY'), 360, 'L_FIS_0001', 25, 25, 'PRD0000000064', 'PUR0000000001');
+INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Product_ID, Purchase_ID) 
+VALUES ('BCH0000000065', TO_DATE('15/09/2025', 'DD/MM/YYYY'), TO_DATE('15/09/2028', 'DD/MM/YYYY'), 525, 'L_FIS_0001', 20, 20, 'PRD0000000065', 'PUR0000000001');
+INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Product_ID, Purchase_ID) 
+VALUES ('BCH0000000066', TO_DATE('20/12/2025', 'DD/MM/YYYY'), TO_DATE('20/12/2027', 'DD/MM/YYYY'), 175, 'L_FIS_0002', 30, 30, 'PRD0000000066', 'PUR0000000001');
+INSERT INTO Product_Batches (Batch_ID, MFG_date, EXP_date, Cost_Price, Lot_Number, Received_Qty, Remaining_Qty, Product_ID, Purchase_ID) 
+VALUES ('BCH0000000067', TO_DATE('15/09/2025', 'DD/MM/YYYY'), TO_DATE('15/09/2028', 'DD/MM/YYYY'), 0, 'L_FIS_PILL', 0, 0, 'PRD0000000067', 'PUR0000000001');
 
 COMMIT;
-
-
