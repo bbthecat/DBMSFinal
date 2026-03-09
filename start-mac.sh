@@ -98,30 +98,8 @@ if ! command -v node &> /dev/null; then
 fi
 
 # ============================================================
-# 5. ตรวจสอบและติดตั้ง Oracle Instant Client (สำหรับ Mac)
+# 5. (Removed) ไม่จำเป็นต้องใช้ Oracle Instant Client สำหรับ oracledb เวอร์ชัน 6+ (Thin Mode)
 # ============================================================
-export ORACLE_DIR="$HOME/oracle_instantclient"
-export INSTANT_CLIENT_DIR="$ORACLE_DIR/instantclient_19_8"
-
-if [ -d "$INSTANT_CLIENT_DIR" ]; then
-    echo "[OK] พบ Oracle Instant Client ในเครื่องแล้ว"
-else
-    echo "[!] ไม่พบ Oracle Instant Client กำลังดาวน์โหลดอัตโนมัติ..."
-    mkdir -p "$ORACLE_DIR"
-
-    echo "[!] กำลังดาวน์โหลด Oracle Instant Client (Basic 19.8 for Mac)..."
-    curl -L -o "$ORACLE_DIR/instantclient.zip" \
-        "https://download.oracle.com/otn_software/mac/instantclient/198000/instantclient-basic-macos.x64-19.8.0.0.0dbru.zip"
-
-    echo "[!] กำลังแตกไฟล์..."
-    unzip -q "$ORACLE_DIR/instantclient.zip" -d "$ORACLE_DIR"
-    ln -sf "$INSTANT_CLIENT_DIR/libclntsh.dylib.19.1" "$INSTANT_CLIENT_DIR/libclntsh.dylib" 2>/dev/null
-
-    echo "[OK] ติดตั้ง Oracle Instant Client สำเร็จ!"
-fi
-
-# ตั้งค่าตัวแปรสำคัญสำหรับ Oracle บน Mac
-export DYLD_LIBRARY_PATH="$INSTANT_CLIENT_DIR:$DYLD_LIBRARY_PATH"
 
 # ============================================================
 # 6. เข้าไปที่โฟลเดอร์เว็บและเริ่มทำงาน
